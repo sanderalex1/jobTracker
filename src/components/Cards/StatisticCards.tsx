@@ -1,11 +1,10 @@
 import { Box } from "@mui/material";
-import { mockApplications } from "../../data/mockData";
 import StatisticCard from "./StatisticCard";
+import { useAppContext } from "../../context/ApplicationContext";
+import type { ApplicationStatus } from "../../data/types";
 
 const StatisticCards = () => {
-  const statusList = mockApplications.map((e) => e.status);
-  const uniqueStatus = [...new Set(statusList)];
-
+  const { uniqueStatus } = useAppContext();
   return (
     <Box
       sx={{
@@ -13,7 +12,7 @@ const StatisticCards = () => {
         gap: 4,
       }}
     >
-      {uniqueStatus.map((status) => (
+      {uniqueStatus.map((status: ApplicationStatus) => (
         <StatisticCard key={status} status={status} />
       ))}
     </Box>

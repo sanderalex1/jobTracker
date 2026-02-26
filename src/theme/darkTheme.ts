@@ -1,6 +1,7 @@
 import { createTheme } from "@mui/material/styles";
-import { statusColors } from "./palette";
+import { statusColors, statusColorsLight } from "./palette";
 import { typography } from "./typography";
+import { components } from "./components";
 
 const darkTheme = createTheme({
   palette: {
@@ -19,6 +20,8 @@ const darkTheme = createTheme({
   },
   statusColors,
   typography,
+  components,
+  statusColorsLight,
 });
 
 export default darkTheme;

@@ -4,7 +4,7 @@ import { useAppContext } from "../../context/ApplicationContext";
 import type { ApplicationStatus } from "../../data/types";
 
 const StatisticCards = () => {
-  const { uniqueStatus } = useAppContext();
+  const { uniqueStatus, statusCounter } = useAppContext();
   return (
     <Box
       sx={{
@@ -13,7 +13,11 @@ const StatisticCards = () => {
       }}
     >
       {uniqueStatus.map((status: ApplicationStatus) => (
-        <StatisticCard key={status} status={status} />
+        <StatisticCard
+          key={status}
+          status={status}
+          count={statusCounter[status] ?? 0}
+        />
       ))}
     </Box>
   );

@@ -9,8 +9,8 @@ const darkTheme = createTheme({
     primary: { main: "rgb(251, 251, 251)" },
     secondary: { main: "rgb(69, 69, 69)" },
     background: {
-      default: "#030213",
-      paper: "#212121",
+      default: "rgb(30, 41, 59)",
+      paper: "rgb(15, 23, 42)",
       button: "rgb(79, 70, 229)",
       card: "",
     },

@@ -1,8 +1,8 @@
 export const typography = {
   h1: {
-    fontSize: "1.5rem", // ~24px
-    fontWeight: 500, // medium
-    lineHeight: 1.5,
+    fontSize: "2.125rem", // ~24px
+    fontWeight: 700, // medium
+    lineHeight: 1.235,
   },
   h2: {
     fontSize: "1.25rem", // ~20px
@@ -21,7 +21,7 @@ export const typography = {
   },
   body1: {
     fontSize: "1rem", // for labels, default text
-    fontWeight: 400,
+    fontWeight: 500,
     lineHeight: 1.5,
   },
   button: {

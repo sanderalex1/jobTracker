@@ -16,6 +16,7 @@ const lightTheme = createTheme({
     },
     text: {
       primary: "rgb(37, 37, 37)",
+      secondary: "rgba(0, 0, 0, 0.6);",
     },
   },
   statusColors,

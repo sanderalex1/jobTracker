@@ -1,4 +1,4 @@
-import { Box, useTheme } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import ArticleIcon from "@mui/icons-material/Article";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
@@ -8,9 +8,10 @@ import type { JSX } from "react";
 
 type StatisticCardProps = {
   status: ApplicationStatus;
+  count: number;
 };
 
-const StatisticCard = ({ status }: StatisticCardProps) => {
+const StatisticCard = ({ status, count }: StatisticCardProps) => {
   const theme = useTheme();
 
   const statusIcons: Record<ApplicationStatus, JSX.Element> = {
@@ -25,7 +26,13 @@ const StatisticCard = ({ status }: StatisticCardProps) => {
       sx={{
         border: "1px solid",
         borderColor: theme.palette.text.primary,
-        p: "1.5rem",
+        padding: "1.5rem",
+        borderRadius: "1rem",
+        display: "flex",
+        gap: 4,
+        justifyItems: "center",
+        width: "100%",
+        backgroundColor: theme.palette.background.default,
       }}
     >
       <Box
@@ -38,6 +45,15 @@ const StatisticCard = ({ status }: StatisticCardProps) => {
         key={status}
       >
         {statusIcons[status]}
+      </Box>
+      <Box sx={{ display: "flex", flexDirection: "column" }}>
+        <Typography
+          sx={{ color: theme.palette.text.secondary }}
+          variant="body1"
+        >
+          {status}
+        </Typography>
+        <Typography variant="h1">{count}</Typography>
       </Box>
     </Box>
   );

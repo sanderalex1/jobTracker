@@ -1,7 +1,15 @@
-import { Box, Button, IconButton, Typography, useTheme } from "@mui/material";
+import {
+  Box,
+  Button,
+  Container,
+  IconButton,
+  Typography,
+  useTheme,
+} from "@mui/material";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import AddIcon from "@mui/icons-material/Add";
 import LightModeIcon from "@mui/icons-material/LightMode";
+import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
 import { useThemeMode } from "../../../theme/AppThemeProvider";
 
 const Header = () => {
@@ -10,15 +18,25 @@ const Header = () => {
   return (
     <Box
       sx={{
-        p: 3,
+        py: 2.5,
+        px: 8,
         display: "flex",
         justifyContent: "space-between",
-        borderBottom: "2px solid",
-        borderColor: theme.palette.text.primary,
+        borderBottom: "1px solid",
+        borderColor: theme.palette.text.secondary,
         alignItems: "center",
       }}
     >
-      <Typography variant="h2">JobTrack</Typography>
+      <Box
+        sx={{
+          display: "flex",
+          gap: 3,
+          alignItems: "center",
+        }}
+      >
+        <WorkOutlineIcon fontSize="large" />
+        <Typography variant="h2">JobTrack</Typography>
+      </Box>
       <Box
         sx={{
           display: "flex",

@@ -6,11 +6,10 @@ function App() {
   return (
     <>
       <Header />
-      <body>
-        <Box sx={{ backgroundColor: theme.palette.background.paper }}>
-          <Dashboard />
-        </Box>
-      </body>
+
+      <Box sx={{ backgroundColor: theme.palette.background.paper }}>
+        <Dashboard />
+      </Box>
     </>
   );
 }

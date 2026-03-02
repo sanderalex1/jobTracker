@@ -5,8 +5,17 @@ import { Container } from "@mui/material";
 
 const Dashboard = () => {
   return (
-    <Container maxWidth="xl">
+    <Container
+      maxWidth="xl"
+      sx={{
+        padding: "1.5rem",
+        display: "flex",
+        flexDirection: "column",
+        gap: 8,
+      }}
+    >
       <StatisticCards />
+      <Searchbar />
     </Container>
   );
 };

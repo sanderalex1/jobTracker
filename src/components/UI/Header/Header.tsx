@@ -1,20 +1,15 @@
-import {
-  Box,
-  Button,
-  Container,
-  IconButton,
-  Typography,
-  useTheme,
-} from "@mui/material";
+import { Box, Button, IconButton, Typography, useTheme } from "@mui/material";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import AddIcon from "@mui/icons-material/Add";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
 import { useThemeMode } from "../../../theme/AppThemeProvider";
+import { useAppContext } from "../../../context/ApplicationContext";
 
 const Header = () => {
   const theme = useTheme();
   const { toggleTheme, darkMode } = useThemeMode();
+  const { handleOpen } = useAppContext();
   return (
     <Box
       sx={{
@@ -59,7 +54,11 @@ const Header = () => {
           }}
         >
           <AddIcon />
-          <Typography variant="button" sx={{ textTransform: "capitalize" }}>
+          <Typography
+            variant="button"
+            sx={{ textTransform: "capitalize" }}
+            onClick={handleOpen}
+          >
             Add Application
           </Typography>
         </Button>

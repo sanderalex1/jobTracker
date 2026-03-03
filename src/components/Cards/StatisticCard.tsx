@@ -33,6 +33,12 @@ const StatisticCard = ({ status, count }: StatisticCardProps) => {
         justifyItems: "center",
         width: "100%",
         backgroundColor: theme.palette.background.default,
+        "&:hover": {
+          transform: "translateY(-6px)",
+          boxShadow: 6,
+          cursor: "pointer",
+          transition: "transform 0.3s ease, box-shadow 0.3s ease",
+        },
       }}
     >
       <Box

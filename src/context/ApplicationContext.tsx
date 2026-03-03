@@ -1,6 +1,7 @@
 import { mockApplications } from "../data/mockData";
 import { createContext, useContext, useState, type ReactNode } from "react";
 import type { ApplicationStatus, JobApplication } from "../data/types";
+import { useLocalStorage } from "../hooks/useLocalStorage";
 
 type AppContextType = {
   uniqueStatus: ApplicationStatus[];
@@ -9,6 +10,9 @@ type AppContextType = {
   removeApplication: (idToRemove: string) => void;
   editApplication: (updatedApp: JobApplication) => void;
   applications: JobApplication[];
+  handleOpen: () => void;
+  handleClose: () => void;
+  open: boolean;
 };
 
 type ApplicationProviderProps = {
@@ -26,8 +30,11 @@ export const useAppContext = () => {
 };
 
 export const ApplicationProvider = ({ children }: ApplicationProviderProps) => {
-  const [applications, setApplications] =
-    useState<JobApplication[]>(mockApplications);
+  const [applications, setApplications] = useLocalStorage<JobApplication[]>(
+    "applications",
+    mockApplications,
+  );
+  const [open, setOpen] = useState(false);
   const statusList = mockApplications.map((e) => e.status);
   const uniqueStatus = [...new Set(statusList)];
 
@@ -43,6 +50,14 @@ export const ApplicationProvider = ({ children }: ApplicationProviderProps) => {
     setApplications((prev) =>
       prev.map((app) => (app.id === updatedApp.id ? updatedApp : app)),
     );
+  };
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
   };
 
   const statusCounter = mockApplications.reduce<
@@ -64,6 +79,9 @@ export const ApplicationProvider = ({ children }: ApplicationProviderProps) => {
     removeApplication,
     editApplication,
     applications,
+    open,
+    handleOpen,
+    handleClose,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

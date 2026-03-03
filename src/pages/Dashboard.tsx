@@ -1,9 +1,13 @@
 import StatisticCards from "../components/Cards/StatisticCards";
 import ApplicationTable from "../components/ApplicationTable/ApplicationTable";
 import Searchbar from "../components/Searchbar/Searchbar";
-import { Container } from "@mui/material";
+import { Container, Dialog } from "@mui/material";
+import ApplicationEditor from "../components/ApplicationTable/ApplicationEditor";
+import { useAppContext } from "../context/ApplicationContext";
 
 const Dashboard = () => {
+  const { open, handleClose } = useAppContext();
+
   return (
     <Container
       maxWidth="xl"
@@ -17,6 +21,9 @@ const Dashboard = () => {
       <StatisticCards />
       <Searchbar />
       <ApplicationTable />
+      <Dialog open={open} onClose={handleClose}>
+        <ApplicationEditor />
+      </Dialog>
     </Container>
   );
 };

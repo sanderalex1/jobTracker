@@ -32,8 +32,7 @@ const ApplicationTable = () => {
       lineHeight: theme.typography.body1.lineHeight,
     },
   }));
-  const { applications, addApplication, removeApplication, editApplication } =
-    useAppContext();
+  const { applications, removeApplication, editApplication } = useAppContext();
 
   return (
     <TableContainer
@@ -81,10 +80,16 @@ const ApplicationTable = () => {
               <StyledTableCell>{row.appliedDate}</StyledTableCell>
               <StyledTableCell>{row.followUpDate}</StyledTableCell>
               <StyledTableCell>
-                <IconButton sx={{ color: theme.statusColors.Applied }}>
+                <IconButton
+                  sx={{ color: theme.statusColors.Applied }}
+                  onClick={() => editApplication(row)}
+                >
                   <CreateIcon />
                 </IconButton>
-                <IconButton sx={{ color: theme.statusColors.Rejected }}>
+                <IconButton
+                  sx={{ color: theme.statusColors.Rejected }}
+                  onClick={() => removeApplication(row.id)}
+                >
                   <DeleteIcon />
                 </IconButton>
               </StyledTableCell>

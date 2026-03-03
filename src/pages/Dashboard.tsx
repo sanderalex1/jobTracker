@@ -16,6 +16,7 @@ const Dashboard = () => {
     >
       <StatisticCards />
       <Searchbar />
+      <ApplicationTable />
     </Container>
   );
 };

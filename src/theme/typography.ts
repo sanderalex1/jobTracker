@@ -16,7 +16,7 @@ export const typography = {
   },
   h4: {
     fontSize: "1rem", // ~16px
-    fontWeight: 500,
+    fontWeight: 700,
     lineHeight: 1.5,
   },
   body1: {

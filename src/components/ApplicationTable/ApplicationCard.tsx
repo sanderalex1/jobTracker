@@ -1,5 +1,7 @@
+import { Box } from "@mui/material";
+
 const ApplicationCard = () => {
-  return <div>Hello from ApplicationCard!</div>;
+  return <Box></Box>;
 };
 
 export default ApplicationCard;

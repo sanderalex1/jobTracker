@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import {
+  Chip,
   IconButton,
   Table,
   TableBody,
@@ -19,7 +20,7 @@ const ApplicationTable = () => {
 
   const StyledTableCell = styled(TableCell)(() => ({
     [`&.${tableCellClasses.head}`]: {
-      backgroundColor: theme.palette.background.paper,
+      backgroundColor: theme.palette.background.headDashboard,
       color: theme.palette.text.primary,
       fontSize: theme.typography.h4.fontSize,
       fontWeight: theme.typography.h4.fontWeight,
@@ -35,7 +36,13 @@ const ApplicationTable = () => {
     useAppContext();
 
   return (
-    <TableContainer sx={{ border: "1px solid", borderRadius: "1rem" }}>
+    <TableContainer
+      sx={{
+        border: "1px solid",
+        borderRadius: "1rem",
+        borderColor: "divider",
+      }}
+    >
       <Table>
         <TableHead>
           <TableRow>
@@ -50,18 +57,34 @@ const ApplicationTable = () => {
         </TableHead>
         <TableBody>
           {applications.map((row) => (
-            <TableRow key={row.id}>
+            <TableRow
+              hover={true}
+              sx={{
+                "&:hover": {
+                  backgroundColor: theme.palette.background.paper,
+                },
+              }}
+              key={row.id}
+            >
               <StyledTableCell>{row.company}</StyledTableCell>
               <StyledTableCell>{row.role}</StyledTableCell>
               <StyledTableCell>{row.location}</StyledTableCell>
-              <StyledTableCell>{row.status}</StyledTableCell>
+              <StyledTableCell>
+                <Chip
+                  label={row.status}
+                  sx={{
+                    backgroundColor: theme.statusColors[row.status], // dynamic color
+                    color: theme.palette.text.primary, // optional text color
+                  }}
+                />
+              </StyledTableCell>
               <StyledTableCell>{row.appliedDate}</StyledTableCell>
               <StyledTableCell>{row.followUpDate}</StyledTableCell>
               <StyledTableCell>
-                <IconButton>
+                <IconButton sx={{ color: theme.statusColors.Applied }}>
                   <CreateIcon />
                 </IconButton>
-                <IconButton>
+                <IconButton sx={{ color: theme.statusColors.Rejected }}>
                   <DeleteIcon />
                 </IconButton>
               </StyledTableCell>

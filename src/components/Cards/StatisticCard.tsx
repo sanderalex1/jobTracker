@@ -25,7 +25,7 @@ const StatisticCard = ({ status, count }: StatisticCardProps) => {
     <Box
       sx={{
         border: "1px solid",
-        borderColor: theme.palette.text.primary,
+        borderColor: "divider",
         padding: "1.5rem",
         borderRadius: "1rem",
         display: "flex",

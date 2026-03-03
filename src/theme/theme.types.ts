@@ -18,6 +18,7 @@ declare module "@mui/material/styles" {
   interface TypeBackground {
     button?: string;
     card?: string;
+    headDashboard?: string;
   }
 
   interface PaletteOptions {

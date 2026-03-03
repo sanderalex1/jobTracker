@@ -23,7 +23,7 @@ const Header = () => {
         display: "flex",
         justifyContent: "space-between",
         borderBottom: "1px solid",
-        borderColor: theme.palette.text.secondary,
+        borderColor: "divider",
         alignItems: "center",
       }}
     >

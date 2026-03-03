@@ -12,7 +12,8 @@ const darkTheme = createTheme({
       default: "rgb(30, 41, 59)",
       paper: "rgb(15, 23, 42)",
       button: "rgb(79, 70, 229)",
-      card: "",
+      card: "rgb(15, 23, 42)",
+      headDashboard: "rgb(12, 18, 32)",
     },
     text: {
       primary: "rgb(251, 251, 251)",

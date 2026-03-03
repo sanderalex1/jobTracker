@@ -13,6 +13,7 @@ const lightTheme = createTheme({
       paper: "#fafafa",
       button: "rgb(79, 70, 229)",
       card: "#fafafa",
+      headDashboard: "#e1e1e1",
     },
     text: {
       primary: "rgb(37, 37, 37)",

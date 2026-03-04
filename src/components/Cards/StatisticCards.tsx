@@ -1,24 +1,31 @@
-import { Box } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import StatisticCard from "./StatisticCard";
 import { useAppContext } from "../../context/ApplicationContext";
-import type { ApplicationStatus } from "../../data/types";
+import {
+  ApplicationStatusEnum,
+  type ApplicationStatus,
+} from "../../data/types";
 
 const StatisticCards = () => {
-  const { uniqueStatus, statusCounter } = useAppContext();
+  const { statusCounter } = useAppContext();
   return (
-    <Box
-      sx={{
-        display: "flex",
-        gap: 4,
-      }}
-    >
-      {uniqueStatus.map((status: ApplicationStatus) => (
-        <StatisticCard
-          key={status}
-          status={status}
-          count={statusCounter[status] ?? 0}
-        />
-      ))}
+    <Box>
+      <Grid
+        container
+        spacing={{ xs: 2, md: 3 }}
+        columns={{ xs: 4, sm: 8, md: 12 }}
+      >
+        {(Object.keys(ApplicationStatusEnum) as ApplicationStatus[]).map(
+          (status: ApplicationStatus) => (
+            <Grid key={status} size={{ xs: 4, sm: 4, md: 3 }}>
+              <StatisticCard
+                status={status}
+                count={statusCounter[status] ?? 0}
+              />
+            </Grid>
+          ),
+        )}
+      </Grid>
     </Box>
   );
 };

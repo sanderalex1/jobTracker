@@ -12,8 +12,12 @@ import { useAppContext } from "../../context/ApplicationContext";
 import type { ApplicationStatus, JobApplication } from "../../data/types";
 
 const ApplicationEditor = () => {
-  const [status, useStatus] = useState("Applied");
-  const { handleClose, addApplication } = useAppContext();
+  const { handleClose, addApplication, editApplication, selectedApplication } =
+    useAppContext();
+  const [status, setStatus] = useState<ApplicationStatus>(
+    selectedApplication?.status ?? "Applied",
+  );
+
   const handleSumbit = (event: React.SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
@@ -21,8 +25,8 @@ const ApplicationEditor = () => {
       string,
       string
     >;
-    const newApplication: JobApplication = {
-      id: crypto.randomUUID(), // generate unique ID
+    const applicationData: JobApplication = {
+      id: selectedApplication?.id ?? crypto.randomUUID(), // generate unique ID
       company: formJson.company,
       role: formJson.role,
       location: formJson.location,
@@ -31,7 +35,12 @@ const ApplicationEditor = () => {
       followUpDate: formJson.followUpDate,
       notes: formJson.notes || undefined, // optional field
     };
-    addApplication(newApplication);
+
+    if (selectedApplication) {
+      editApplication(applicationData);
+    } else {
+      addApplication(applicationData);
+    }
     handleClose();
   };
 
@@ -43,7 +52,8 @@ const ApplicationEditor = () => {
           <TextField
             required
             margin="dense"
-            id="name"
+            name="company"
+            defaultValue={selectedApplication?.company}
             label="Company Name"
             type="text"
             fullWidth
@@ -52,7 +62,8 @@ const ApplicationEditor = () => {
           <TextField
             required
             margin="dense"
-            id="role"
+            name="role"
+            defaultValue={selectedApplication?.role}
             label="Role"
             type="text"
             fullWidth
@@ -61,13 +72,17 @@ const ApplicationEditor = () => {
           <TextField
             required
             margin="dense"
-            id="location"
+            name="location"
+            defaultValue={selectedApplication?.location}
             label="Location"
             type="text"
             fullWidth
             variant="outlined"
           />
           <Select
+            name="status"
+            value={status}
+            onChange={(e) => setStatus(e.target.value as ApplicationStatus)}
             variant="outlined"
             displayEmpty
             sx={{
@@ -80,11 +95,38 @@ const ApplicationEditor = () => {
             <MenuItem value="Offer">Offer</MenuItem>
             <MenuItem value="Rejected">Rejected</MenuItem>
           </Select>
+          <TextField
+            required
+            margin="dense"
+            name="appliedDate"
+            defaultValue={selectedApplication?.appliedDate}
+            label="Applied Date"
+            type="date"
+            fullWidth
+            variant="outlined"
+            InputLabelProps={{ shrink: true }}
+          />
+          <TextField
+            required
+            margin="dense"
+            name="followUpDate"
+            defaultValue={selectedApplication?.followUpDate}
+            label="Follow-up Date"
+            type="date"
+            fullWidth
+            variant="outlined"
+            InputLabelProps={{ shrink: true }}
+          />
         </form>
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose}>Cancel</Button>
-        <Button type="submit" form="edit-form">
+        <Button
+          sx={{ background: "blue" }}
+          variant="outlined"
+          type="submit"
+          form="edit-form"
+        >
           Save
         </Button>
       </DialogActions>

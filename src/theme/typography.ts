@@ -24,6 +24,11 @@ export const typography = {
     fontWeight: 500,
     lineHeight: 1.5,
   },
+  body2: {
+    fontSize: "0.875rem",
+    fontWeight: 400,
+    lineHeight: 1.5,
+  },
   button: {
     fontSize: "0.875rem",
     fontWeight: 500,

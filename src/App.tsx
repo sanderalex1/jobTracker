@@ -7,7 +7,12 @@ function App() {
     <>
       <Header />
 
-      <Box sx={{ backgroundColor: theme.palette.background.paper }}>
+      <Box
+        sx={{
+          backgroundColor: theme.palette.background.paper,
+          height: "100svh",
+        }}
+      >
         <Dashboard />
       </Box>
     </>

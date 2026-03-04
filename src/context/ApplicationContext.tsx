@@ -4,7 +4,6 @@ import type { ApplicationStatus, JobApplication } from "../data/types";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 
 type AppContextType = {
-  uniqueStatus: ApplicationStatus[];
   statusCounter: Record<ApplicationStatus, number>;
   addApplication: (data: JobApplication) => void;
   removeApplication: (idToRemove: string) => void;
@@ -13,6 +12,10 @@ type AppContextType = {
   handleOpen: () => void;
   handleClose: () => void;
   open: boolean;
+  setSelectedApplication: React.Dispatch<
+    React.SetStateAction<JobApplication | null>
+  >;
+  selectedApplication: JobApplication | null;
 };
 
 type ApplicationProviderProps = {
@@ -34,9 +37,9 @@ export const ApplicationProvider = ({ children }: ApplicationProviderProps) => {
     "applications",
     mockApplications,
   );
+  const [selectedApplication, setSelectedApplication] =
+    useState<JobApplication | null>(null);
   const [open, setOpen] = useState(false);
-  const statusList = mockApplications.map((e) => e.status);
-  const uniqueStatus = [...new Set(statusList)];
 
   const addApplication = (data: JobApplication) => {
     setApplications((prev) => [...prev, data]);
@@ -58,11 +61,10 @@ export const ApplicationProvider = ({ children }: ApplicationProviderProps) => {
 
   const handleClose = () => {
     setOpen(false);
+    setSelectedApplication(null);
   };
 
-  const statusCounter = mockApplications.reduce<
-    Record<ApplicationStatus, number>
-  >(
+  const statusCounter = applications.reduce<Record<ApplicationStatus, number>>(
     (acc, app) => {
       acc[app.status] = (acc[app.status] || 0) + 1;
       return acc;
@@ -70,10 +72,9 @@ export const ApplicationProvider = ({ children }: ApplicationProviderProps) => {
     {} as Record<ApplicationStatus, number>,
   );
 
-  statusCounter["Applied"] = mockApplications.length;
+  statusCounter["Applied"] = applications.length;
 
   const value = {
-    uniqueStatus,
     statusCounter,
     addApplication,
     removeApplication,
@@ -82,6 +83,8 @@ export const ApplicationProvider = ({ children }: ApplicationProviderProps) => {
     open,
     handleOpen,
     handleClose,
+    setSelectedApplication,
+    selectedApplication,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

@@ -2,21 +2,7 @@ import { mockApplications } from "../data/mockData";
 import { createContext, useContext, useState, type ReactNode } from "react";
 import type { ApplicationStatus, JobApplication } from "../data/types";
 import { useLocalStorage } from "../hooks/useLocalStorage";
-
-type AppContextType = {
-  statusCounter: Record<ApplicationStatus, number>;
-  addApplication: (data: JobApplication) => void;
-  removeApplication: (idToRemove: string) => void;
-  editApplication: (updatedApp: JobApplication) => void;
-  applications: JobApplication[];
-  handleOpen: () => void;
-  handleClose: () => void;
-  open: boolean;
-  setSelectedApplication: React.Dispatch<
-    React.SetStateAction<JobApplication | null>
-  >;
-  selectedApplication: JobApplication | null;
-};
+import type { AppContextType } from "./ApplicationContext.type";
 
 type ApplicationProviderProps = {
   children: ReactNode;
@@ -37,8 +23,18 @@ export const ApplicationProvider = ({ children }: ApplicationProviderProps) => {
     "applications",
     mockApplications,
   );
+
   const [selectedApplication, setSelectedApplication] =
     useState<JobApplication | null>(null);
+
+  const [filteredApplication, setFilteredApplication] = useState<
+    JobApplication[] | null
+  >(null);
+
+  const [activeStatus, setActiveStatus] = useState<ApplicationStatus | null>(
+    null,
+  );
+
   const [open, setOpen] = useState(false);
 
   const addApplication = (data: JobApplication) => {
@@ -53,6 +49,18 @@ export const ApplicationProvider = ({ children }: ApplicationProviderProps) => {
     setApplications((prev) =>
       prev.map((app) => (app.id === updatedApp.id ? updatedApp : app)),
     );
+  };
+
+  const statusFilter = (status?: ApplicationStatus) => {
+    if (status === activeStatus) {
+      // same status clicked again → reset
+      setFilteredApplication(null);
+      setActiveStatus(null);
+    } else {
+      const result = applications.filter((app) => app.status === status);
+      setFilteredApplication(result);
+      setActiveStatus(status ?? null);
+    }
   };
 
   const handleOpen = () => {
@@ -74,17 +82,23 @@ export const ApplicationProvider = ({ children }: ApplicationProviderProps) => {
 
   statusCounter["Applied"] = applications.length;
 
-  const value = {
-    statusCounter,
-    addApplication,
-    removeApplication,
-    editApplication,
-    applications,
-    open,
-    handleOpen,
-    handleClose,
-    setSelectedApplication,
-    selectedApplication,
+  const value: AppContextType = {
+    static: {
+      statusCounter,
+      applications,
+      open,
+      selectedApplication,
+      filteredApplication,
+    },
+    action: {
+      addApplication,
+      removeApplication,
+      editApplication,
+      handleOpen,
+      handleClose,
+      setSelectedApplication,
+      statusFilter,
+    },
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

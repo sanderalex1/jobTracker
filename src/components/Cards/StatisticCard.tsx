@@ -5,6 +5,7 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CancelIcon from "@mui/icons-material/Cancel";
 import type { ApplicationStatus } from "../../data/types";
 import type { JSX } from "react";
+import { useAppContext } from "../../context/ApplicationContext";
 
 type StatisticCardProps = {
   status: ApplicationStatus;
@@ -12,6 +13,10 @@ type StatisticCardProps = {
 };
 
 const StatisticCard = ({ status, count }: StatisticCardProps) => {
+  const {
+    action: { statusFilter },
+  } = useAppContext();
+
   const theme = useTheme();
 
   const statusIcons: Record<ApplicationStatus, JSX.Element> = {
@@ -39,6 +44,9 @@ const StatisticCard = ({ status, count }: StatisticCardProps) => {
           cursor: "pointer",
           transition: "transform 0.3s ease, box-shadow 0.3s ease",
         },
+      }}
+      onClick={() => {
+        statusFilter(status);
       }}
     >
       <Box

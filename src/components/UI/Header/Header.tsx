@@ -9,7 +9,9 @@ import { useAppContext } from "../../../context/ApplicationContext";
 const Header = () => {
   const theme = useTheme();
   const { toggleTheme, darkMode } = useThemeMode();
-  const { handleOpen } = useAppContext();
+  const {
+    action: { handleOpen },
+  } = useAppContext();
   return (
     <Box
       sx={{

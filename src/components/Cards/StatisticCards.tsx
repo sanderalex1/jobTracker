@@ -7,7 +7,9 @@ import {
 } from "../../data/types";
 
 const StatisticCards = () => {
-  const { statusCounter } = useAppContext();
+  const {
+    static: { statusCounter },
+  } = useAppContext();
   return (
     <Box>
       <Grid

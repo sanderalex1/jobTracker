@@ -6,7 +6,10 @@ import ApplicationEditor from "../components/ApplicationTable/ApplicationEditor"
 import { useAppContext } from "../context/ApplicationContext";
 
 const Dashboard = () => {
-  const { open, handleClose } = useAppContext();
+  const {
+    static: { open },
+    action: { handleClose },
+  } = useAppContext();
 
   return (
     <Container

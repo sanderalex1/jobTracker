@@ -12,8 +12,10 @@ import { useAppContext } from "../../context/ApplicationContext";
 import type { ApplicationStatus, JobApplication } from "../../data/types";
 
 const ApplicationEditor = () => {
-  const { handleClose, addApplication, editApplication, selectedApplication } =
-    useAppContext();
+  const {
+    static: { selectedApplication },
+    action: { handleClose, addApplication, editApplication },
+  } = useAppContext();
   const [status, setStatus] = useState<ApplicationStatus>(
     selectedApplication?.status ?? "Applied",
   );
@@ -25,6 +27,7 @@ const ApplicationEditor = () => {
       string,
       string
     >;
+
     const applicationData: JobApplication = {
       id: selectedApplication?.id ?? crypto.randomUUID(), // generate unique ID
       company: formJson.company,

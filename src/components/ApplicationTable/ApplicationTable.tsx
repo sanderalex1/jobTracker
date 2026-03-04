@@ -33,12 +33,13 @@ const ApplicationTable = () => {
       lineHeight: theme.typography.body1.lineHeight,
     },
   }));
+
   const {
-    applications,
-    removeApplication,
-    setSelectedApplication,
-    handleOpen,
+    static: { applications, filteredApplication },
+    action: { removeApplication, setSelectedApplication, handleOpen },
   } = useAppContext();
+
+  const rowsToDisplay = filteredApplication ?? applications;
 
   if (applications.length === 0) {
     return <ApplicationEmptyCard />;
@@ -64,7 +65,7 @@ const ApplicationTable = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {applications.map((row) => (
+            {rowsToDisplay.map((row) => (
               <TableRow
                 hover={true}
                 sx={{

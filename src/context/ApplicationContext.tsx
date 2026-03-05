@@ -31,9 +31,9 @@ export const ApplicationProvider = ({ children }: ApplicationProviderProps) => {
     JobApplication[] | null
   >(null);
 
-  const [activeStatus, setActiveStatus] = useState<ApplicationStatus | null>(
-    null,
-  );
+  const [activeStatus, setActiveStatus] = useState<
+    ApplicationStatus | null | ""
+  >(null);
 
   const [open, setOpen] = useState(false);
 
@@ -52,14 +52,20 @@ export const ApplicationProvider = ({ children }: ApplicationProviderProps) => {
   };
 
   const statusFilter = (status?: ApplicationStatus) => {
+    if (!status) {
+      // All Statuses selected → reset filter
+      setFilteredApplication(null);
+      setActiveStatus(""); // track active status as "" for Select
+      return;
+    }
     if (status === activeStatus) {
       // same status clicked again → reset
       setFilteredApplication(null);
-      setActiveStatus(null);
+      setActiveStatus("");
     } else {
       const result = applications.filter((app) => app.status === status);
       setFilteredApplication(result);
-      setActiveStatus(status ?? null);
+      setActiveStatus(status);
     }
   };
 

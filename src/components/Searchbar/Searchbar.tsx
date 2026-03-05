@@ -1,8 +1,11 @@
 import { TextField, InputAdornment, Box } from "@mui/material";
 import { Search } from "@mui/icons-material";
 import Filter from "./Filter/Filter";
+import { useState } from "react";
 
 const Searchbar = () => {
+  const [search, setSearch] = useState("");
+
   return (
     <Box sx={{ display: "flex", gap: 4 }}>
       <TextField
@@ -27,6 +30,8 @@ const Searchbar = () => {
             ),
           },
         }}
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
       />
       <Filter />
     </Box>

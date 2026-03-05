@@ -24,7 +24,18 @@ const Dashboard = () => {
       <StatisticCards />
       <Searchbar />
       <ApplicationTable />
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        fullWidth
+        slotProps={{
+          paper: {
+            sx: {
+              borderRadius: "2rem", // custom border radius
+            },
+          },
+        }}
+      >
         <ApplicationEditor />
       </Dialog>
     </Container>

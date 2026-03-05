@@ -1,19 +1,40 @@
-import { InputAdornment, OutlinedInput, Select, MenuItem } from "@mui/material";
+import {
+  InputAdornment,
+  OutlinedInput,
+  Select,
+  MenuItem,
+  type SelectChangeEvent,
+} from "@mui/material";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { useState } from "react";
+import { useAppContext } from "../../../context/ApplicationContext";
+import type { ApplicationStatus } from "../../../data/types";
 
 const Filter = () => {
-  const [status, useStatus] = useState("");
+  const [status, setStatus] = useState<ApplicationStatus | "">("");
+  const {
+    action: { statusFilter },
+  } = useAppContext();
+
+  const handleChange = (event: SelectChangeEvent) => {
+    const value = event.target.value as ApplicationStatus | "";
+    const parsed = value || undefined;
+
+    setStatus(value);
+    statusFilter(parsed);
+  };
+
   return (
     <Select
-      value={status}
-      variant="outlined"
+      value={status ?? ""}
+      onChange={handleChange}
       displayEmpty
+      variant="outlined"
       sx={{
         width: "15%",
         borderRadius: "2rem",
         "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-          borderColor: "#1976d2", // border on focus
+          borderColor: "#1976d2",
           borderWidth: "2px",
         },
       }}
@@ -27,7 +48,7 @@ const Filter = () => {
         />
       }
     >
-      <MenuItem value="">All Statuses</MenuItem>
+      <MenuItem value={""}>All Statuses</MenuItem>
       <MenuItem value="Applied">Applied</MenuItem>
       <MenuItem value="Interview">Interview</MenuItem>
       <MenuItem value="Offer">Offer</MenuItem>

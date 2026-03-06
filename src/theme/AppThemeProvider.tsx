@@ -1,7 +1,7 @@
 import { ThemeProvider, CssBaseline } from "@mui/material";
 import lightTheme from "./lightTheme";
 import darkTheme from "./darkTheme";
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext } from "react";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 
 interface Props {

@@ -87,8 +87,12 @@ const ApplicationTable = () => {
                     }}
                   />
                 </StyledTableCell>
-                <StyledTableCell>{row.appliedDate}</StyledTableCell>
-                <StyledTableCell>{row.followUpDate}</StyledTableCell>
+                <StyledTableCell>
+                  {row.appliedDate.toISOString()}
+                </StyledTableCell>
+                <StyledTableCell>
+                  {row.followUpDate?.toISOString() ?? ""}
+                </StyledTableCell>
                 <StyledTableCell>
                   <IconButton
                     sx={{ color: theme.statusColors.Applied }}

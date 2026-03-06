@@ -1,5 +1,5 @@
 import "@mui/material/styles";
-import type { statusColors, statusColorsLight } from "./palette";
+import type { statusColors, statusColorsLight } from "../theme/palette";
 
 type StatusColors = typeof statusColors;
 type StatusColorsLight = typeof statusColorsLight;

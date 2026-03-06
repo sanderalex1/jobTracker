@@ -38,8 +38,10 @@ const ApplicationEditor = () => {
       role: formJson.role,
       location: formJson.location,
       status: formJson.status as ApplicationStatus, // cast string to your enum type
-      appliedDate: formJson.appliedDate,
-      followUpDate: formJson.followUpDate,
+      appliedDate: new Date(formJson.appliedDate as string),
+      followUpDate: formJson.followUpDate
+        ? new Date(formJson.followUpDate as string)
+        : undefined,
       notes: formJson.notes || undefined, // optional field
     };
 
@@ -146,8 +148,8 @@ const ApplicationEditor = () => {
               margin="normal"
               name="followUpDate"
               defaultValue={
-                selectedApplication?.appliedDate
-                  ? new Date(selectedApplication.appliedDate)
+                selectedApplication?.followUpDate
+                  ? new Date(selectedApplication.followUpDate)
                       .toISOString()
                       .split("T")[0]
                   : (() => {

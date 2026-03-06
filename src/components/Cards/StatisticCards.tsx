@@ -17,16 +17,11 @@ const StatisticCards = () => {
         spacing={{ xs: 2, md: 3 }}
         columns={{ xs: 4, sm: 8, md: 12 }}
       >
-        {(Object.keys(ApplicationStatusEnum) as ApplicationStatus[]).map(
-          (status: ApplicationStatus) => (
-            <Grid key={status} size={{ xs: 4, sm: 4, md: 3 }}>
-              <StatisticCard
-                status={status}
-                count={statusCounter[status] ?? 0}
-              />
-            </Grid>
-          ),
-        )}
+        {ApplicationStatusEnum.map((status: ApplicationStatus) => (
+          <Grid key={status} size={{ xs: 4, sm: 4, md: 3 }}>
+            <StatisticCard status={status} count={statusCounter[status] ?? 0} />
+          </Grid>
+        ))}
       </Grid>
     </Box>
   );

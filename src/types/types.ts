@@ -1,19 +1,18 @@
-export const ApplicationStatusEnum = {
-  Applied: 0,
-  Interview: 0,
-  Offer: 0,
-  Rejected: 0,
-} as const;
-
-export type ApplicationStatus = keyof typeof ApplicationStatusEnum;
+export const ApplicationStatusEnum = [
+  "Applied",
+  "Interview",
+  "Offer",
+  "Rejected",
+] as const;
+export type ApplicationStatus = (typeof ApplicationStatusEnum)[number];
 
 export interface JobApplication {
-  id: string;
+  id: `${string}-${string}-${string}-${string}-${string}`;
   company: string;
   role: string;
   location: string;
   status: ApplicationStatus;
-  appliedDate: string;
-  followUpDate: string;
+  appliedDate: Date;
+  followUpDate?: Date;
   notes?: string;
 }

@@ -33,16 +33,16 @@ const ApplicationEditor = () => {
     >;
 
     const applicationData: JobApplication = {
-      id: selectedApplication?.id ?? crypto.randomUUID(), // generate unique ID
+      id: selectedApplication?.id ?? crypto.randomUUID(),
       company: formJson.company,
       role: formJson.role,
       location: formJson.location,
-      status: formJson.status as ApplicationStatus, // cast string to your enum type
+      status: formJson.status as ApplicationStatus,
       appliedDate: new Date(formJson.appliedDate as string),
       followUpDate: formJson.followUpDate
         ? new Date(formJson.followUpDate as string)
         : undefined,
-      notes: formJson.notes || undefined, // optional field
+      notes: formJson.notes || undefined,
     };
 
     if (selectedApplication) {

@@ -88,10 +88,12 @@ const ApplicationTable = () => {
                   />
                 </StyledTableCell>
                 <StyledTableCell>
-                  {row.appliedDate.toISOString()}
+                  {new Date(row.appliedDate).toLocaleDateString()}
                 </StyledTableCell>
                 <StyledTableCell>
-                  {row.followUpDate?.toISOString() ?? ""}
+                  {row.followUpDate
+                    ? new Date(row.followUpDate).toLocaleDateString()
+                    : ""}
                 </StyledTableCell>
                 <StyledTableCell>
                   <IconButton

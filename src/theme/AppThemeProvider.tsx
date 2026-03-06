@@ -2,6 +2,7 @@ import { ThemeProvider, CssBaseline } from "@mui/material";
 import lightTheme from "./lightTheme";
 import darkTheme from "./darkTheme";
 import { createContext, useContext, useState } from "react";
+import { useLocalStorage } from "../hooks/useLocalStorage";
 
 interface Props {
   children: React.ReactNode;
@@ -25,7 +26,7 @@ export const useThemeMode = () => {
 };
 
 export const AppThemeProvider = ({ children }: Props) => {
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useLocalStorage("darkMode", false);
 
   const toggleTheme = () => setDarkMode((prev) => !prev);
 

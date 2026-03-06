@@ -3,7 +3,7 @@ import ArticleIcon from "@mui/icons-material/Article";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CancelIcon from "@mui/icons-material/Cancel";
-import type { ApplicationStatus } from "../../data/types";
+import type { ApplicationStatus } from "../../types/types";
 import type { JSX } from "react";
 import { useAppContext } from "../../context/ApplicationContext";
 

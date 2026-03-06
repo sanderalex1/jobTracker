@@ -4,7 +4,7 @@ import { useAppContext } from "../../context/ApplicationContext";
 import {
   ApplicationStatusEnum,
   type ApplicationStatus,
-} from "../../data/types";
+} from "../../types/types";
 
 const StatisticCards = () => {
   const {

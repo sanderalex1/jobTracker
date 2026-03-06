@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { useAppContext } from "../../context/ApplicationContext";
-import type { ApplicationStatus, JobApplication } from "../../data/types";
+import type { ApplicationStatus, JobApplication } from "../../types/types";
 import styled from "@emotion/styled";
 
 const ApplicationEditor = () => {

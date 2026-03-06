@@ -1,8 +1,8 @@
 import { mockApplications } from "../data/mockData";
 import { createContext, useContext, useState, type ReactNode } from "react";
-import type { ApplicationStatus, JobApplication } from "../data/types";
+import type { ApplicationStatus, JobApplication } from "../types/types";
 import { useLocalStorage } from "../hooks/useLocalStorage";
-import type { AppContextType } from "./ApplicationContext.type";
+import type { AppContextType } from "../types/ApplicationContext.type";
 
 type ApplicationProviderProps = {
   children: ReactNode;

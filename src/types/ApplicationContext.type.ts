@@ -1,4 +1,4 @@
-import type { ApplicationStatus, JobApplication } from "../data/types";
+import type { ApplicationStatus, JobApplication } from "./types";
 
 export type AppContextType = {
   static: {

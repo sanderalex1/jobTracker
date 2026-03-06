@@ -1,73 +1,106 @@
-# React + TypeScript + Vite
+# Job Tracker
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React-based job application tracker built with TypeScript, Vite, and Material-UI. This application helps users manage and track their job applications, view statistics, search and filter applications, and edit application details.
 
-Currently, two official plugins are available:
+## Installation
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+1. Clone the repository:
 
-## React Compiler
+   ```
+   git clone <repository-url>
+   cd jobTracker
+   ```
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+2. Install dependencies:
 
-## Expanding the ESLint configuration
+   ```
+   npm install
+   ```
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+3. Start the development server:
+   ```
+   npm run dev
+   ```
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Usage
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+After starting the development server, open your browser to `http://localhost:5173` (or the port specified by Vite).
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+The application features:
+
+- Dashboard with statistic cards showing application metrics
+- Search and filter functionality for applications
+- Table view of all applications
+- Edit dialog for adding or modifying application details
+
+## Examples
+
+### Viewing Statistics
+
+The dashboard displays cards with key statistics such as total applications, pending applications, etc.
+
+### Searching Applications
+
+Use the search bar to filter applications by company, position, or status.
+
+### Editing an Application
+
+Click on an application in the table to open the edit dialog, where you can update details like application date, status, and notes.
+
+## Folder Structure
+
 ```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+jobTracker/
+├── public/
+├── src/
+│   ├── components/
+│   │   ├── ApplicationTable/
+│   │   │   ├── ApplicationEditor.tsx
+│   │   │   ├── ApplicationEmptyCard.tsx
+│   │   │   └── ApplicationTable.tsx
+│   │   ├── Cards/
+│   │   │   ├── StatisticCard.tsx
+│   │   │   └── StatisticCards.tsx
+│   │   ├── Searchbar/
+│   │   │   ├── Searchbar.tsx
+│   │   │   └── Filter/
+│   │   │       └── Filter.tsx
+│   │   └── UI/
+│   │       └── Header/
+│   │           └── Header.tsx
+│   ├── context/
+│   │   ├── ApplicationContext.tsx
+│   │   └── ApplicationContext.type.ts
+│   ├── data/
+│   │   ├── mockData.ts
+│   │   └── types.ts
+│   ├── hooks/
+│   │   └── useLocalStorage.ts
+│   ├── pages/
+│   │   └── Dashboard.tsx
+│   ├── theme/
+│   │   ├── AppThemeProvider.tsx
+│   │   ├── components.ts
+│   │   ├── darkTheme.ts
+│   │   ├── index.ts
+│   │   ├── lightTheme.ts
+│   │   ├── palette.ts
+│   │   ├── spacing.ts
+│   │   ├── theme.types.ts
+│   │   └── typography.ts
+│   ├── types/
+│   │   └── application.ts
+│   ├── utils/
+│   │   └── dateHelper.ts
+│   ├── App.tsx
+│   └── main.tsx
+├── .gitignore
+├── eslint.config.js
+├── index.html
+├── package.json
+├── README.md
+├── tsconfig.app.json
+├── tsconfig.json
+├── tsconfig.node.json
+├── vite.config.ts
 ```

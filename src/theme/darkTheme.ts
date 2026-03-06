@@ -17,6 +17,8 @@ const darkTheme = createTheme({
     },
     text: {
       primary: "rgb(251, 251, 251)",
+      secondary: "rgba(255, 255, 255, 0.65)",
+      disabled: "rgba(255, 255, 255, 0.38)",
     },
   },
   statusColors,

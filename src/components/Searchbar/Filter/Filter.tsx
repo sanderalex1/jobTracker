@@ -8,7 +8,7 @@ import {
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { useState } from "react";
 import { useAppContext } from "../../../context/ApplicationContext";
-import type { ApplicationStatus } from "../../../data/types";
+import type { ApplicationStatus } from "../../../types/types";
 
 const Filter = () => {
   const [status, setStatus] = useState<ApplicationStatus | "">("");

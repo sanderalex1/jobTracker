@@ -1,4 +1,4 @@
-import { Box, Grid } from "@mui/material";
+import { Box, Grid, useTheme } from "@mui/material";
 import StatisticCard from "./StatisticCard";
 import { useAppContext } from "../../context/ApplicationContext";
 import {
@@ -10,6 +10,7 @@ const StatisticCards = () => {
   const {
     static: { statusCounter },
   } = useAppContext();
+
   return (
     <Box>
       <Grid

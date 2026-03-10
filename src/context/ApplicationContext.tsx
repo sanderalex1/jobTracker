@@ -95,6 +95,7 @@ export const ApplicationProvider = ({ children }: ApplicationProviderProps) => {
       open,
       selectedApplication,
       filteredApplication,
+      activeStatus,
     },
     action: {
       addApplication,

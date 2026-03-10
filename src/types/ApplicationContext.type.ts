@@ -7,6 +7,7 @@ export type AppContextType = {
     open: boolean;
     selectedApplication: JobApplication | null;
     filteredApplication: JobApplication[] | null;
+    activeStatus: ApplicationStatus | null | "";
   };
   action: {
     addApplication: (data: JobApplication) => void;

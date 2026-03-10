@@ -14,6 +14,7 @@ type StatisticCardProps = {
 
 const StatisticCard = ({ status, count }: StatisticCardProps) => {
   const {
+    static: { activeStatus },
     action: { statusFilter },
   } = useAppContext();
 
@@ -25,12 +26,12 @@ const StatisticCard = ({ status, count }: StatisticCardProps) => {
     Offer: <CheckCircleIcon fontSize="large" />,
     Rejected: <CancelIcon fontSize="large" />,
   };
-
   return (
     <Box
       sx={{
-        border: "1px solid",
-        borderColor: "divider",
+        border: activeStatus === status ? "2px solid" : "1px solid",
+        borderColor:
+          activeStatus === status ? theme.statusColors[status] : "divider",
         padding: "1.5rem",
         borderRadius: "1rem",
         display: "flex",
@@ -38,15 +39,16 @@ const StatisticCard = ({ status, count }: StatisticCardProps) => {
         justifyItems: "center",
         width: "100%",
         backgroundColor: theme.palette.background.default,
+        transition: "transform 0.3s ease, box-shadow 0.3s ease",
         "&:hover": {
           transform: "translateY(-6px)",
           boxShadow: 6,
           cursor: "pointer",
-          transition: "transform 0.3s ease, box-shadow 0.3s ease",
         },
       }}
       onClick={() => {
         statusFilter(status);
+        console.log(status, activeStatus);
       }}
     >
       <Box

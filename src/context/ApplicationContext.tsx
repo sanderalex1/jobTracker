@@ -2,7 +2,7 @@ import { mockApplications } from "../data/mockData";
 import { createContext, useContext, useState, type ReactNode } from "react";
 import type { ApplicationStatus, JobApplication } from "../types/types";
 import { useLocalStorage } from "../hooks/useLocalStorage";
-import type { AppContextType } from "../types/applicationContext.type";
+import type { AppContextType } from "../types/ApplicationContext.type";
 
 type ApplicationProviderProps = {
   children: ReactNode;
@@ -85,8 +85,6 @@ export const ApplicationProvider = ({ children }: ApplicationProviderProps) => {
     },
     {} as Record<ApplicationStatus, number>,
   );
-
-  statusCounter["Applied"] = applications.length;
 
   const value: AppContextType = {
     static: {

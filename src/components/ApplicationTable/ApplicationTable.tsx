@@ -1,11 +1,8 @@
-import styled from "@emotion/styled";
 import {
   Chip,
   IconButton,
   Table,
   TableBody,
-  TableCell,
-  tableCellClasses,
   TableContainer,
   TableHead,
   TableRow,
@@ -15,24 +12,11 @@ import { useAppContext } from "../../context/ApplicationContext";
 import CreateIcon from "@mui/icons-material/Create";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ApplicationEmptyCard from "./ApplicationEmptyCard";
+import { StyledTableCell } from "../muiComponents";
 
 const ApplicationTable = () => {
   const theme = useTheme();
-
-  const StyledTableCell = styled(TableCell)(() => ({
-    [`&.${tableCellClasses.head}`]: {
-      backgroundColor: theme.palette.background.headDashboard,
-      color: theme.palette.text.primary,
-      fontSize: theme.typography.h4.fontSize,
-      fontWeight: theme.typography.h4.fontWeight,
-      lineHeight: theme.typography.h4.lineHeight,
-    },
-    [`&.${tableCellClasses.body}`]: {
-      fontSize: theme.typography.body1.fontSize,
-      fontWeight: theme.typography.body1.fontWeight,
-      lineHeight: theme.typography.body1.lineHeight,
-    },
-  }));
+  console.log(theme);
 
   const {
     static: { applications, filteredApplication },

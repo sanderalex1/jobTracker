@@ -31,7 +31,7 @@ const Dashboard = () => {
         slotProps={{
           paper: {
             sx: {
-              borderRadius: "2rem", // custom border radius
+              borderRadius: "2rem",
             },
           },
         }}

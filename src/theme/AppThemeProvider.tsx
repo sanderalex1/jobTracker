@@ -1,7 +1,7 @@
 import { ThemeProvider, CssBaseline } from "@mui/material";
 import lightTheme from "./lightTheme";
 import darkTheme from "./darkTheme";
-import { createContext, useContext } from "react";
+import { createContext, useContext, useMemo } from "react";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 
 interface Props {
@@ -30,8 +30,10 @@ export const AppThemeProvider = ({ children }: Props) => {
 
   const toggleTheme = () => setDarkMode((prev) => !prev);
 
+  const value = useMemo(() => ({ darkMode, toggleTheme }), [darkMode]);
+
   return (
-    <ThemeModeContext.Provider value={{ darkMode, toggleTheme }}>
+    <ThemeModeContext.Provider value={value}>
       <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
         <CssBaseline /> {children}
       </ThemeProvider>

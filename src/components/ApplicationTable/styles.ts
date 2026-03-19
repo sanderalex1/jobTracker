@@ -1,0 +1,15 @@
+export const cardWrapperStyles = {
+  backgroundColor: "background.default",
+  border: "1px solid",
+  borderRadius: 4,
+  borderColor: "divider",
+  width: "100%",
+  height: "100%",
+  padding: "64px",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  flexDirection: "column",
+  gap: 2,
+  color: "text.disabled",
+};

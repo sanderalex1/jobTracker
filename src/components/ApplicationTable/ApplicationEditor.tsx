@@ -160,6 +160,14 @@ const ApplicationEditor = () => {
               multiline
               rows={4}
             />
+            <StyledTextField
+              margin="normal"
+              name="link"
+              defaultValue={selectedApplication?.link}
+              label="Link"
+              fullWidth
+              variant="outlined"
+            />
           </Box>
         </form>
       </DialogContent>

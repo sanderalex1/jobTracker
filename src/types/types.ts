@@ -15,4 +15,5 @@ export interface JobApplication {
   appliedDate: Date;
   followUpDate?: Date;
   notes?: string;
+  link?: string;
 }

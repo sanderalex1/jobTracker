@@ -6,7 +6,6 @@ function App() {
   return (
     <>
       <Header />
-
       <Box
         sx={{
           backgroundColor: theme.palette.background.paper,

@@ -23,10 +23,11 @@ export const getApplications = async (req, res) => {
 
 export const createApplication = async (req, res) => {
   try {
-    const { company, role } = req.body;
+    const { company, role, location, status, applied_date } = req.body;
+    const id = crypto.randomUUID();
     const result = await pool.query(
-      "INSERT INTO applications (company, role) VALUES ($1, $2) RETURNING *",
-      [company, role],
+      "INSERT INTO applications (id, company, role, location, status, applied_date) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *",
+      [id, company, role, location, status, applied_date],
     );
     return res.status(201).json(result.rows[0]);
   } catch (e) {
@@ -36,13 +37,39 @@ export const createApplication = async (req, res) => {
 };
 
 export const updateApplication = async (req, res) => {
-  const applicationData = req.params.id;
-  console.log(applicationData);
-  res.json({ message: "No real data yet" });
+  const { id } = req.params;
+  try {
+    const { company, role, location, status, applied_date } = req.body;
+    const result = await pool.query(
+      "UPDATE applications SET company = $2, role = $3, location = $4, status = $5, applied_date = $6 WHERE id = $1 RETURNING *",
+      [id, company, role, location, status, applied_date],
+    );
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "Application not found" });
+    }
+    return res.status(200).json(result.rows[0]);
+  } catch (e) {
+    console.log(e);
+    return res.status(500).json({ error: "Internal server error" });
+  }
 };
 
 export const deleteApplication = async (req, res) => {
-  const applicationData = req.params.id;
-  console.log(applicationData);
-  res.json({ message: "No real data yet" });
+  const { id } = req.params;
+  try {
+    const result = await pool.query(
+      "DELETE FROM applications WHERE id = $1 RETURNING *",
+      [id],
+    );
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "Application not found" });
+    }
+    res.status(200).json({
+      message: "The application was deleted",
+      deleted: result.rows[0],
+    });
+  } catch (e) {
+    console.log(e);
+    return res.status(500).json({ error: "Internal server error" });
+  }
 };

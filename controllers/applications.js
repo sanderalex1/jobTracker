@@ -3,13 +3,12 @@ import pool from "../db/pool.js";
 export const getApplications = async (req, res) => {
   try {
     const { status } = req.query;
-    let query = "...";
+    let query = `SELECT id, company, role, location, status, applied_date AS "appliedDate", follow_up_date AS "followUpDate", notes, link FROM applications`;
+
     let params = [];
-    if (!status) {
-      query = "SELECT id, company, role, status FROM applications";
-    } else {
-      query =
-        "SELECT id, company, role, status FROM applications WHERE status = $1";
+
+    if (status) {
+      query += ` WHERE status = $1`;
       params = [status];
     }
 

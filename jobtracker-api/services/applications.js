@@ -1,5 +1,5 @@
+import "dotenv/config";
 import pool from "../db/pool.js";
-
 export const fetchApplications = async (status) => {
   let query = `SELECT id, company, role, location, status, applied_date AS "appliedDate", follow_up_date AS "followUpDate", notes, link FROM applications`;
 

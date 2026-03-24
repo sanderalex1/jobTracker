@@ -18,12 +18,10 @@ app.use((err, req, res, next) => {
     switch (err.code) {
       case "ECONNREFUSED":
         console.log(err);
-        return res.status(500).json({ error: "E1009" });
+        return res.status(500).json({ error: "DB error!" });
       default:
         console.log(err);
-        return res
-          .status(500)
-          .json({ error: "Internal server error! FOOBAR!" });
+        return res.status(500).json({ error: "Internal server error!" });
     }
   }
 });

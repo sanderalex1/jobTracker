@@ -12,7 +12,7 @@ export type AppContextType = {
   action: {
     addApplication: (data: JobApplication) => void;
     removeApplication: (idToRemove: string) => void;
-    editApplication: (updatedApp: JobApplication) => void;
+    editApplication: (id: string, data: JobApplication) => void;
     handleOpen: () => void;
     handleClose: () => void;
     setSelectedApplication: React.Dispatch<

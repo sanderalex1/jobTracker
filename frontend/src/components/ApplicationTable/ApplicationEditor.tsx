@@ -45,7 +45,7 @@ const ApplicationEditor = () => {
     };
 
     if (selectedApplication) {
-      editApplication(applicationData);
+      editApplication(applicationData.id, applicationData);
     } else {
       addApplication(applicationData);
     }

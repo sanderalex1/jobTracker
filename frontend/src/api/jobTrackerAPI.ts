@@ -1,16 +1,28 @@
-const BASE_URL = "http://localhost:3000/api/v1/applications";
+import type { JobApplication } from "../types/types";
 
-async function request(endpoint = "") {
-  const res = await fetch(`${BASE_URL}${endpoint}`);
+const BASE_URL = "http://localhost:3000/api/v1";
 
-  if (!res.ok) {
-    throw new Error("Request failed");
-  }
-
-  try {
-    const jsonData = await res.json();
-    return jsonData;
-  } catch (e) {
-    throw new Error("No Json Data");
-  }
+async function request(endpoint: string, options?: RequestInit) {
+  const res = await fetch(`${BASE_URL}${endpoint}`, options);
+  if (!res.ok) throw new Error("Request failed");
+  return res.json();
 }
+
+export const getApplications = () => request("/applications");
+
+export const createApplication = (data: JobApplication) =>
+  request("/applications", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+
+export const updateApplication = (id: string, data: JobApplication) =>
+  request(`/applications/${id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+
+export const deleteApplication = (id: string) =>
+  request(`/applications/${id}`, { method: "DELETE" });

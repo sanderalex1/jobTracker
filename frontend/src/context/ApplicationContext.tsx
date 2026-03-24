@@ -1,8 +1,7 @@
-import { mockApplications } from "../data/mockData";
 import { createContext, useContext, useState, type ReactNode } from "react";
 import type { ApplicationStatus, JobApplication } from "../types/types";
-import { useLocalStorage } from "../hooks/useLocalStorage";
-import type { AppContextType } from "../types/applicationContext.type";
+import type { AppContextType } from "../types/ApplicationContext.type";
+import { useApplications } from "../hooks/useApplications";
 
 type ApplicationProviderProps = {
   children: ReactNode;
@@ -19,10 +18,14 @@ export const useAppContext = () => {
 };
 
 export const ApplicationProvider = ({ children }: ApplicationProviderProps) => {
-  const [applications, setApplications] = useLocalStorage<JobApplication[]>(
-    "applications",
-    mockApplications,
-  );
+  const {
+    applications,
+    isLoading,
+    error,
+    addApplication,
+    removeApplication,
+    editApplication,
+  } = useApplications();
 
   const [selectedApplication, setSelectedApplication] =
     useState<JobApplication | null>(null);
@@ -36,20 +39,6 @@ export const ApplicationProvider = ({ children }: ApplicationProviderProps) => {
   >(null);
 
   const [open, setOpen] = useState(false);
-
-  const addApplication = (data: JobApplication) => {
-    setApplications((prev) => [...prev, data]);
-  };
-
-  const removeApplication = (idToRemove: string) => {
-    setApplications((prev) => prev.filter((app) => app.id !== idToRemove));
-  };
-
-  const editApplication = (updatedApp: JobApplication) => {
-    setApplications((prev) =>
-      prev.map((app) => (app.id === updatedApp.id ? updatedApp : app)),
-    );
-  };
 
   const statusFilter = (status?: ApplicationStatus) => {
     if (!status) {

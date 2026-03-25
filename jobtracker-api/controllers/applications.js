@@ -1,9 +1,9 @@
 import * as applicationService from "../services/applications.js";
 
 export const getApplications = async (req, res) => {
-  const { status } = req.query;
+  const { status, search, page, limit } = req.query;
 
-  return res.json(await applicationService.fetchApplications(status));
+  return res.json(await applicationService.fetchApplications(req.query));
 };
 
 export const createApplication = async (req, res) => {

@@ -4,6 +4,7 @@ import type { JobApplication } from "../types/types";
 
 export const useApplications = () => {
   const [applications, setApplications] = useState<JobApplication[]>([]);
+  const [total, setTotal] = useState<number>(0);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -12,8 +13,9 @@ export const useApplications = () => {
       setError(null);
       setIsLoading(true);
       try {
-        const fetchedApplications = await api.getApplications();
-        setApplications(fetchedApplications);
+        const { rows, total } = await api.getApplications();
+        setApplications(rows);
+        setTotal(total);
       } catch (e) {
         if (e instanceof Error) {
           setError(e.message);
@@ -87,6 +89,7 @@ export const useApplications = () => {
     applications,
     isLoading,
     error,
+    total,
     addApplication,
     removeApplication,
     editApplication,

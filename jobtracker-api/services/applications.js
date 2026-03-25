@@ -1,18 +1,64 @@
 import pool from "../db/pool.js";
 
-export const fetchApplications = async (status) => {
+export const fetchApplications = async ({
+  status,
+  search,
+  page = 1,
+  limit = 10,
+}) => {
   let query = `SELECT id, company, role, location, status, applied_date AS "appliedDate", follow_up_date AS "followUpDate", notes, link FROM applications`;
 
   let params = [];
+  let conditions = [];
+  const pageNum = parseInt(page);
+  const limitNum = parseInt(limit);
+  let offset = (pageNum - 1) * limitNum;
 
+  // Filtering by status
   if (status) {
-    query += ` WHERE status = $1`;
-    params = [status];
+    conditions.push(`status = $${params.length + 1}`);
+    params.push(status);
   }
 
-  const result = await pool.query(query, params);
+  // Filtering by company or role or location
+  if (search) {
+    conditions.push(
+      `(company ILIKE $${params.length + 1} OR role ILIKE $${params.length + 1} OR location ILIKE $${params.length + 1})`,
+    );
+    params.push(`%${search}%`);
+  }
 
-  return result.rows;
+  if (conditions.length !== 0) {
+    query += " WHERE " + conditions.join(" AND ");
+  }
+
+  // Counting the total number of matching rows, so frontend knows how many pages exist
+  const countParams = [...params];
+
+  let countQuery = "SELECT COUNT(*) FROM applications";
+
+  if (conditions.length !== 0) {
+    countQuery =
+      "SELECT COUNT(*) FROM applications" +
+      " WHERE " +
+      conditions.join(" AND ");
+  }
+
+  const limitIndex = params.length + 1; // capture before pushing
+  const offsetIndex = params.length + 2; // capture before pushing
+
+  //Pushing the limit and offset into params only now because order matters
+  params.push(limit);
+  params.push(offset);
+
+  //checking limit and offset
+  query += ` LIMIT $${limitIndex} OFFSET $${offsetIndex}`;
+
+  const result = await pool.query(query, params);
+  const countResult = await pool.query(countQuery, countParams);
+  const total = parseInt(countResult.rows[0].count);
+
+  return { rows: result.rows, total };
 };
 
 export const makeApplication = async ({

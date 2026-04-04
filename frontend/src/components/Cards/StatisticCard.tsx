@@ -3,19 +3,19 @@ import ArticleIcon from "@mui/icons-material/Article";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CancelIcon from "@mui/icons-material/Cancel";
-import type { ApplicationStatus } from "../../types/types";
+import type { ApplicationStatus, Stats } from "../../types/types";
 import { type JSX } from "react";
 
 type StatisticCardProps = {
   status: ApplicationStatus;
-  count: number;
+  stats: Stats | undefined;
   activeStatus: ApplicationStatus | "";
   onStatusClick: (status: ApplicationStatus) => void;
 };
 
 const StatisticCard = ({
   status,
-  count,
+  stats,
   activeStatus,
   onStatusClick,
 }: StatisticCardProps) => {
@@ -69,7 +69,7 @@ const StatisticCard = ({
         >
           {status}
         </Typography>
-        <Typography variant="h1">{count}</Typography>
+        <Typography variant="h1">{stats ? stats[status] : 0}</Typography>
       </Box>
     </Box>
   );

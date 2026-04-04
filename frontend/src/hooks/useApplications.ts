@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import * as api from "../api/jobTrackerAPI";
-import type { JobApplication } from "../types/types";
+import type { JobApplication, Stats } from "../types/types";
 import { useDebounce } from "./useDebounce";
 
 export const useApplications = () => {
@@ -11,6 +11,7 @@ export const useApplications = () => {
   const [page, setPage] = useState<number>(1);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [stats, setStats] = useState<Stats>();
   const debouncedSearch = useDebounce(search, 500);
 
   useEffect(() => {
@@ -95,6 +96,26 @@ export const useApplications = () => {
     }
   };
 
+  useEffect(() => {
+    const getStats = async () => {
+      setError(null);
+      setIsLoading(true);
+      try {
+        const stats = await api.getStats();
+        setStats(stats);
+      } catch (e) {
+        if (e instanceof Error) {
+          setError(e.message);
+        } else {
+          setError("An unknown error occurred");
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    getStats();
+  }, [applications]);
+
   const value = {
     applications,
     isLoading,
@@ -103,6 +124,7 @@ export const useApplications = () => {
     page,
     search,
     status,
+    stats,
     setSearch,
     setStatus,
     setPage,

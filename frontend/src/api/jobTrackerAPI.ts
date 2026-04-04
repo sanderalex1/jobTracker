@@ -25,6 +25,9 @@ export const getApplications = ({ search, status, page, limit }: Params) => {
   return request(`/applications?${params.toString()}`);
 };
 
+export const getApplicationById = (id: string) =>
+  request(`/applications/${id}`);
+
 export const createApplication = (data: JobApplication) =>
   request("/applications", {
     method: "POST",
@@ -41,3 +44,5 @@ export const updateApplication = (id: string, data: JobApplication) =>
 
 export const deleteApplication = (id: string) =>
   request(`/applications/${id}`, { method: "DELETE" });
+
+export const getStats = () => request(`/applications/stats`);

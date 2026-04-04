@@ -1,8 +1,7 @@
-import type { ApplicationStatus, JobApplication } from "./types";
+import type { ApplicationStatus, JobApplication, Stats } from "./types";
 
 export type AppContextType = {
   static: {
-    statusCounter: Record<ApplicationStatus, number>;
     applications: JobApplication[];
     open: boolean;
     selectedApplication: JobApplication | null;
@@ -11,6 +10,7 @@ export type AppContextType = {
     page: number;
     total: number;
     search: string;
+    stats: Stats | undefined;
   };
   action: {
     addApplication: (data: JobApplication) => void;

@@ -4,6 +4,7 @@ export const ApplicationStatusEnum = [
   "Offer",
   "Rejected",
 ] as const;
+
 export type ApplicationStatus = (typeof ApplicationStatusEnum)[number];
 
 export interface JobApplication {
@@ -17,3 +18,5 @@ export interface JobApplication {
   notes?: string;
   link?: string;
 }
+
+export type Stats = Record<ApplicationStatus, number>;

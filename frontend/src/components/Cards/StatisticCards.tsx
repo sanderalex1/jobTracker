@@ -10,7 +10,7 @@ import { useState } from "react";
 const StatisticCards = () => {
   const [activeStatus, setActiveStatus] = useState<ApplicationStatus | "">("");
   const {
-    static: { statusCounter },
+    static: { stats },
     action: { setStatus },
   } = useAppContext();
 
@@ -35,7 +35,7 @@ const StatisticCards = () => {
           <Grid key={status} size={{ xs: 4, sm: 4, md: 3 }}>
             <StatisticCard
               status={status}
-              count={statusCounter[status] ?? 0}
+              stats={stats}
               activeStatus={activeStatus}
               onStatusClick={handleStatusClick}
             />

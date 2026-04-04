@@ -25,6 +25,7 @@ export const ApplicationProvider = ({ children }: ApplicationProviderProps) => {
     page,
     total,
     search,
+    stats,
     addApplication,
     removeApplication,
     editApplication,
@@ -47,17 +48,8 @@ export const ApplicationProvider = ({ children }: ApplicationProviderProps) => {
     setSelectedApplication(null);
   };
 
-  const statusCounter = applications.reduce<Record<ApplicationStatus, number>>(
-    (acc, app) => {
-      acc[app.status] = (acc[app.status] || 0) + 1;
-      return acc;
-    },
-    {} as Record<ApplicationStatus, number>,
-  );
-
   const value: AppContextType = {
     static: {
-      statusCounter,
       applications,
       open,
       selectedApplication,
@@ -66,6 +58,7 @@ export const ApplicationProvider = ({ children }: ApplicationProviderProps) => {
       page,
       total,
       search,
+      stats,
     },
     action: {
       addApplication,

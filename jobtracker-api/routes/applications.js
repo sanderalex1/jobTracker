@@ -4,9 +4,15 @@ import {
   deleteApplication,
   getApplications,
   updateApplication,
+  getApplicationById,
+  getStats,
 } from "../controllers/applications.js";
 import asyncHandler from "../middleware/asyncHandler.js";
 const router = Router();
+
+router.get("/stats", asyncHandler(getStats));
+
+router.get("/:id", asyncHandler(getApplicationById));
 
 router.get("/", asyncHandler(getApplications));
 

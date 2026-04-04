@@ -45,3 +45,18 @@ export const deleteApplication = async (req, res) => {
     deleted: deletedApplication,
   });
 };
+
+export const getApplicationById = async (req, res) => {
+  const { id } = req.params;
+  const application = await applicationService.fetchApplicationById(id);
+  if (application === null) {
+    return res.status(404).json({ error: "Application not found" });
+  }
+  return res.status(200).json(application);
+};
+
+export const getStats = async (req, res) => {
+  const status = await applicationService.getStats();
+
+  return res.status(200).json(status);
+};

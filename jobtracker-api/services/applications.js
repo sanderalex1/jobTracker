@@ -131,3 +131,27 @@ export const deleteApplication = async (id) => {
   }
   return result.rows[0];
 };
+
+export const fetchApplicationById = async (id) => {
+  const result = await pool.query(
+    `SELECT id, company, role, location, status, applied_date AS "appliedDate", follow_up_date AS "followUpDate", notes, link FROM applications WHERE id = $1`,
+    [id],
+  );
+  if (result.rows.length === 0) {
+    return null;
+  }
+  return result.rows[0];
+};
+
+export const getStats = async () => {
+  const result = await pool.query(
+    `SELECT status, COUNT(*) as count FROM applications GROUP BY status`,
+  );
+  if (result.rows.length === 0) {
+    return null;
+  }
+  return result.rows.reduce((acc, row) => {
+    acc[row.status] = parseInt(row.count);
+    return acc;
+  }, {});
+};

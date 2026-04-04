@@ -8,7 +8,22 @@ async function request(endpoint: string, options?: RequestInit) {
   return res.json();
 }
 
-export const getApplications = () => request("/applications");
+interface Params {
+  search: string;
+  status: string;
+  page: number;
+  limit: number;
+}
+
+export const getApplications = ({ search, status, page, limit }: Params) => {
+  const params = new URLSearchParams();
+  if (status) params.append("status", status);
+  if (search) params.append("search", search);
+  params.append("page", String(page));
+  params.append("limit", String(limit));
+
+  return request(`/applications?${params.toString()}`);
+};
 
 export const createApplication = (data: JobApplication) =>
   request("/applications", {

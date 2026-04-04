@@ -1,23 +1,30 @@
 import * as applicationService from "../services/applications.js";
+import { schema } from "../schemas/application.js";
 
 export const getApplications = async (req, res) => {
-  const { status, search, page, limit } = req.query;
-
   return res.json(await applicationService.fetchApplications(req.query));
 };
 
 export const createApplication = async (req, res) => {
+  const result = schema.safeParse(req.body);
+  if (!result.success) {
+    return res.status(400).json({ errors: result.error.errors });
+  }
   return res
     .status(201)
-    .json(await applicationService.makeApplication(req.body));
+    .json(await applicationService.makeApplication(result.data));
 };
 
 export const updateApplication = async (req, res) => {
   const { id } = req.params;
+  const result = schema.safeParse(req.body);
+  if (!result.success) {
+    return res.status(400).json({ errors: result.error.errors });
+  }
 
   const updatedApplication = await applicationService.updateApplication(
     id,
-    req.body,
+    result.data,
   );
 
   if (updatedApplication === null) {

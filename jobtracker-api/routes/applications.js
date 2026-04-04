@@ -5,15 +5,15 @@ import {
   getApplications,
   updateApplication,
 } from "../controllers/applications.js";
-
+import asyncHandler from "../middleware/asyncHandler.js";
 const router = Router();
 
-router.get("/", getApplications);
+router.get("/", asyncHandler(getApplications));
 
-router.post("/", createApplication);
+router.post("/", asyncHandler(createApplication));
 
-router.put("/:id", updateApplication);
+router.put("/:id", asyncHandler(updateApplication));
 
-router.delete("/:id", deleteApplication);
+router.delete("/:id", asyncHandler(deleteApplication));
 
 export default router;

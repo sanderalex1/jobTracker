@@ -5,6 +5,9 @@ import type { JobApplication } from "../types/types";
 export const useApplications = () => {
   const [applications, setApplications] = useState<JobApplication[]>([]);
   const [total, setTotal] = useState<number>(0);
+  const [search, setSearch] = useState<string>("");
+  const [status, setStatus] = useState<string>("");
+  const [page, setPage] = useState<number>(1);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -13,7 +16,12 @@ export const useApplications = () => {
       setError(null);
       setIsLoading(true);
       try {
-        const { rows, total } = await api.getApplications();
+        const { rows, total } = await api.getApplications({
+          search,
+          status,
+          page,
+          limit: 10,
+        });
         setApplications(rows);
         setTotal(total);
       } catch (e) {
@@ -27,7 +35,7 @@ export const useApplications = () => {
       }
     };
     fetchApplicationsData();
-  }, []);
+  }, [search, status, page]);
 
   const addApplication = async (data: JobApplication) => {
     setError(null);
@@ -85,13 +93,19 @@ export const useApplications = () => {
     }
   };
 
-  return {
+  const value = {
     applications,
     isLoading,
     error,
     total,
+    page,
+    setSearch,
+    setStatus,
+    setPage,
     addApplication,
     removeApplication,
     editApplication,
   };
+
+  return value;
 };

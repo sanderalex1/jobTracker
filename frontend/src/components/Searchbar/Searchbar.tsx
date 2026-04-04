@@ -1,10 +1,13 @@
 import { TextField, InputAdornment, Box } from "@mui/material";
 import { Search } from "@mui/icons-material";
 import Filter from "./Filter/Filter";
-import { useState } from "react";
+import { useAppContext } from "../../context/ApplicationContext";
 
 const Searchbar = () => {
-  const [search, setSearch] = useState("");
+  const {
+    action: { setSearch },
+    static: { search },
+  } = useAppContext();
 
   return (
     <Box sx={{ display: "flex", gap: 4 }}>

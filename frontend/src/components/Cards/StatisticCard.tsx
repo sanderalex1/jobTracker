@@ -4,20 +4,21 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CancelIcon from "@mui/icons-material/Cancel";
 import type { ApplicationStatus } from "../../types/types";
-import type { JSX } from "react";
-import { useAppContext } from "../../context/ApplicationContext";
+import { type JSX } from "react";
 
 type StatisticCardProps = {
   status: ApplicationStatus;
   count: number;
+  activeStatus: ApplicationStatus | "";
+  onStatusClick: (status: ApplicationStatus) => void;
 };
 
-const StatisticCard = ({ status, count }: StatisticCardProps) => {
-  const {
-    static: { activeStatus },
-    action: { statusFilter },
-  } = useAppContext();
-
+const StatisticCard = ({
+  status,
+  count,
+  activeStatus,
+  onStatusClick,
+}: StatisticCardProps) => {
   const theme = useTheme();
 
   const statusIcons: Record<ApplicationStatus, JSX.Element> = {
@@ -47,8 +48,7 @@ const StatisticCard = ({ status, count }: StatisticCardProps) => {
         },
       }}
       onClick={() => {
-        statusFilter(status);
-        console.log(status, activeStatus);
+        onStatusClick(status);
       }}
     >
       <Box

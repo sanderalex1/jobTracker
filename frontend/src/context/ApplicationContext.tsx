@@ -22,41 +22,21 @@ export const ApplicationProvider = ({ children }: ApplicationProviderProps) => {
     applications,
     isLoading,
     error,
+    page,
+    total,
+    search,
     addApplication,
     removeApplication,
     editApplication,
+    setSearch,
+    setStatus,
+    setPage,
   } = useApplications();
 
   const [selectedApplication, setSelectedApplication] =
     useState<JobApplication | null>(null);
 
-  const [filteredApplication, setFilteredApplication] = useState<
-    JobApplication[] | null
-  >(null);
-
-  const [activeStatus, setActiveStatus] = useState<
-    ApplicationStatus | null | ""
-  >(null);
-
   const [open, setOpen] = useState(false);
-
-  const statusFilter = (status?: ApplicationStatus) => {
-    if (!status) {
-      // All Statuses selected → reset filter
-      setFilteredApplication(null);
-      setActiveStatus(""); // track active status as "" for Select
-      return;
-    }
-    if (status === activeStatus) {
-      // same status clicked again → reset
-      setFilteredApplication(null);
-      setActiveStatus("");
-    } else {
-      const result = applications.filter((app) => app.status === status);
-      setFilteredApplication(result);
-      setActiveStatus(status);
-    }
-  };
 
   const handleOpen = () => {
     setOpen(true);
@@ -81,8 +61,11 @@ export const ApplicationProvider = ({ children }: ApplicationProviderProps) => {
       applications,
       open,
       selectedApplication,
-      filteredApplication,
-      activeStatus,
+      isLoading,
+      error,
+      page,
+      total,
+      search,
     },
     action: {
       addApplication,
@@ -91,7 +74,9 @@ export const ApplicationProvider = ({ children }: ApplicationProviderProps) => {
       handleOpen,
       handleClose,
       setSelectedApplication,
-      statusFilter,
+      setSearch,
+      setStatus,
+      setPage,
     },
   };
 

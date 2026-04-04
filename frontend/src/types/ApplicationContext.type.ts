@@ -6,8 +6,11 @@ export type AppContextType = {
     applications: JobApplication[];
     open: boolean;
     selectedApplication: JobApplication | null;
-    filteredApplication: JobApplication[] | null;
-    activeStatus: ApplicationStatus | null | "";
+    isLoading: boolean;
+    error: string | null;
+    page: number;
+    total: number;
+    search: string;
   };
   action: {
     addApplication: (data: JobApplication) => void;
@@ -18,6 +21,8 @@ export type AppContextType = {
     setSelectedApplication: React.Dispatch<
       React.SetStateAction<JobApplication | null>
     >;
-    statusFilter: (status?: ApplicationStatus) => void;
+    setSearch: React.Dispatch<React.SetStateAction<string>>;
+    setStatus: React.Dispatch<React.SetStateAction<string>>;
+    setPage: React.Dispatch<React.SetStateAction<number>>;
   };
 };

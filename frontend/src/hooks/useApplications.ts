@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import * as api from "../api/jobTrackerAPI";
 import type { JobApplication } from "../types/types";
+import { useDebounce } from "./useDebounce";
 
 export const useApplications = () => {
   const [applications, setApplications] = useState<JobApplication[]>([]);
@@ -10,6 +11,7 @@ export const useApplications = () => {
   const [page, setPage] = useState<number>(1);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const debouncedSearch = useDebounce(search, 500);
 
   useEffect(() => {
     const fetchApplicationsData = async () => {
@@ -17,7 +19,7 @@ export const useApplications = () => {
       setIsLoading(true);
       try {
         const { rows, total } = await api.getApplications({
-          search,
+          search: debouncedSearch,
           status,
           page,
           limit: 10,
@@ -35,7 +37,7 @@ export const useApplications = () => {
       }
     };
     fetchApplicationsData();
-  }, [search, status, page]);
+  }, [debouncedSearch, status, page]);
 
   const addApplication = async (data: JobApplication) => {
     setError(null);
@@ -99,6 +101,8 @@ export const useApplications = () => {
     error,
     total,
     page,
+    search,
+    status,
     setSearch,
     setStatus,
     setPage,

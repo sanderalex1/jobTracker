@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, type ReactNode } from "react";
-import type { ApplicationStatus, JobApplication } from "../types/types";
+import type { JobApplication } from "../types/types";
 import type { AppContextType } from "../types/ApplicationContext.type";
 import { useApplications } from "../hooks/useApplications";
 
@@ -26,12 +26,16 @@ export const ApplicationProvider = ({ children }: ApplicationProviderProps) => {
     total,
     search,
     stats,
+    sortBy,
+    order,
     addApplication,
     removeApplication,
     editApplication,
     setSearch,
     setStatus,
     setPage,
+    setOrder,
+    setSortBy,
   } = useApplications();
 
   const [selectedApplication, setSelectedApplication] =
@@ -59,6 +63,8 @@ export const ApplicationProvider = ({ children }: ApplicationProviderProps) => {
       total,
       search,
       stats,
+      sortBy,
+      order,
     },
     action: {
       addApplication,
@@ -70,6 +76,8 @@ export const ApplicationProvider = ({ children }: ApplicationProviderProps) => {
       setSearch,
       setStatus,
       setPage,
+      setOrder,
+      setSortBy,
     },
   };
 

@@ -1,3 +1,4 @@
+import type { Params } from "../types/api.types";
 import type { JobApplication } from "../types/types";
 
 const BASE_URL = "http://localhost:3000/api/v1";
@@ -8,19 +9,21 @@ async function request(endpoint: string, options?: RequestInit) {
   return res.json();
 }
 
-interface Params {
-  search: string;
-  status: string;
-  page: number;
-  limit: number;
-}
-
-export const getApplications = ({ search, status, page, limit }: Params) => {
+export const getApplications = ({
+  search,
+  status,
+  page,
+  limit,
+  sortBy,
+  order,
+}: Params) => {
   const params = new URLSearchParams();
   if (status) params.append("status", status);
   if (search) params.append("search", search);
   params.append("page", String(page));
   params.append("limit", String(limit));
+  params.append("sortBy", sortBy);
+  params.append("order", order);
 
   return request(`/applications?${params.toString()}`);
 };

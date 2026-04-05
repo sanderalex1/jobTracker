@@ -1,6 +1,5 @@
 import { TextField, InputAdornment, Box } from "@mui/material";
 import { Search } from "@mui/icons-material";
-import Filter from "./Filter/Filter";
 import { useAppContext } from "../../context/ApplicationContext";
 
 const Searchbar = () => {
@@ -15,7 +14,7 @@ const Searchbar = () => {
         variant="outlined"
         placeholder="Search by company, role, or location..."
         sx={{
-          width: "85%",
+          width: "100%",
           "& .MuiOutlinedInput-root": {
             borderRadius: "2rem",
             "&.Mui-focused fieldset": {
@@ -36,7 +35,6 @@ const Searchbar = () => {
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       />
-      <Filter />
     </Box>
   );
 };

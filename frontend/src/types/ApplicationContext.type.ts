@@ -1,4 +1,5 @@
-import type { ApplicationStatus, JobApplication, Stats } from "./types";
+import type { Order, SortBy } from "./api.types";
+import type { JobApplication, Stats } from "./types";
 
 export type AppContextType = {
   static: {
@@ -11,6 +12,8 @@ export type AppContextType = {
     total: number;
     search: string;
     stats: Stats | undefined;
+    sortBy: SortBy;
+    order: Order;
   };
   action: {
     addApplication: (data: JobApplication) => void;
@@ -24,5 +27,7 @@ export type AppContextType = {
     setSearch: React.Dispatch<React.SetStateAction<string>>;
     setStatus: React.Dispatch<React.SetStateAction<string>>;
     setPage: React.Dispatch<React.SetStateAction<number>>;
+    setSortBy: React.Dispatch<React.SetStateAction<SortBy>>;
+    setOrder: React.Dispatch<React.SetStateAction<Order>>;
   };
 };

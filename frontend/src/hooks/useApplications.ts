@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import * as api from "../api/jobTrackerAPI";
 import type { JobApplication, Stats } from "../types/types";
 import { useDebounce } from "./useDebounce";
+import type { Order, SortBy } from "../types/api.types";
 
 export const useApplications = () => {
   const [applications, setApplications] = useState<JobApplication[]>([]);
@@ -12,6 +13,8 @@ export const useApplications = () => {
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [stats, setStats] = useState<Stats>();
+  const [sortBy, setSortBy] = useState<SortBy>("applied_date");
+  const [order, setOrder] = useState<Order>("desc");
   const debouncedSearch = useDebounce(search, 500);
 
   useEffect(() => {
@@ -24,9 +27,13 @@ export const useApplications = () => {
           status,
           page,
           limit: 10,
+          sortBy,
+          order,
         });
         setApplications(rows);
         setTotal(total);
+        setSortBy(sortBy);
+        setOrder(order);
       } catch (e) {
         if (e instanceof Error) {
           setError(e.message);
@@ -38,7 +45,7 @@ export const useApplications = () => {
       }
     };
     fetchApplicationsData();
-  }, [debouncedSearch, status, page]);
+  }, [debouncedSearch, status, page, sortBy, order]);
 
   const addApplication = async (data: JobApplication) => {
     setError(null);
@@ -96,6 +103,7 @@ export const useApplications = () => {
     }
   };
 
+  //Loading status
   useEffect(() => {
     const getStats = async () => {
       setError(null);
@@ -125,6 +133,10 @@ export const useApplications = () => {
     search,
     status,
     stats,
+    sortBy,
+    order,
+    setOrder,
+    setSortBy,
     setSearch,
     setStatus,
     setPage,

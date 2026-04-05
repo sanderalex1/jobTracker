@@ -13,17 +13,32 @@ import CreateIcon from "@mui/icons-material/Create";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ApplicationEmptyCard from "./ApplicationEmptyCard";
 import { StyledTableCell } from "../muiComponents";
+import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropUp";
 
 const ApplicationTable = () => {
   const theme = useTheme();
-  console.log(theme);
+
+  const headers = [
+    { label: "Company", sortKey: "company" },
+    { label: "Role", sortKey: null },
+    { label: "Location", sortKey: null },
+    { label: "Status", sortKey: null },
+    { label: "Applied Date", sortKey: "applied_date" },
+    { label: "Follow-up Date", sortKey: null },
+    { label: "Actions", sortKey: null },
+  ];
 
   const {
-    static: { applications, filteredApplication },
-    action: { removeApplication, setSelectedApplication, handleOpen },
+    static: { applications, sortBy, order },
+    action: {
+      removeApplication,
+      setSelectedApplication,
+      handleOpen,
+      setOrder,
+      setSortBy,
+    },
   } = useAppContext();
-
-  const rowsToDisplay = filteredApplication ?? applications;
 
   if (applications.length === 0) {
     return <ApplicationEmptyCard />;
@@ -39,17 +54,35 @@ const ApplicationTable = () => {
         <Table>
           <TableHead>
             <TableRow>
-              <StyledTableCell>Company</StyledTableCell>
-              <StyledTableCell align="left">Role</StyledTableCell>
-              <StyledTableCell align="left">Location</StyledTableCell>
-              <StyledTableCell align="left">Status</StyledTableCell>
-              <StyledTableCell align="left">Applied Date</StyledTableCell>
-              <StyledTableCell align="left">Follow-up Date</StyledTableCell>
-              <StyledTableCell align="left">Actions</StyledTableCell>
+              {headers.map((header) => (
+                <StyledTableCell key={header.label} align="left">
+                  {header.sortKey ? (
+                    <span
+                      onClick={() => {
+                        const key = header.sortKey as
+                          | "company"
+                          | "applied_date";
+                        setSortBy(key);
+                        setOrder((prev) => (prev === "asc" ? "desc" : "asc"));
+                      }}
+                      style={{ cursor: "pointer" }}
+                    >
+                      {header.label}
+                      {header.sortKey === sortBy
+                        ? order === "asc"
+                          ? "↑"
+                          : "↓"
+                        : "↕"}
+                    </span>
+                  ) : (
+                    header.label
+                  )}
+                </StyledTableCell>
+              ))}
             </TableRow>
           </TableHead>
           <TableBody>
-            {rowsToDisplay.map((row) => (
+            {applications.map((row) => (
               <TableRow
                 hover={true}
                 sx={{

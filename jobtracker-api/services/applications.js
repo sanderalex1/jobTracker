@@ -5,6 +5,8 @@ export const fetchApplications = async ({
   search,
   page = 1,
   limit = 10,
+  sortBy = "applied_date",
+  order = "desc",
 }) => {
   let query = `SELECT id, company, role, location, status, applied_date AS "appliedDate", follow_up_date AS "followUpDate", notes, link FROM applications`;
 
@@ -31,6 +33,16 @@ export const fetchApplications = async ({
   if (conditions.length !== 0) {
     query += " WHERE " + conditions.join(" AND ");
   }
+
+  //sorting by date as default
+
+  const allowedSortBy = ["company", "applied_date"];
+  const allowedOrder = ["asc", "desc"];
+  //creating whitelist for sorting, so we can prevent someone from sending ?sortBy=DROP TABLE applications
+  const safeSortBy = allowedSortBy.includes(sortBy) ? sortBy : "applied_date";
+  const safeOrder = allowedOrder.includes(order) ? order : "desc";
+
+  query += ` ORDER BY ${safeSortBy} ${safeOrder}`;
 
   // Counting the total number of matching rows, so frontend knows how many pages exist
   const countParams = [...params];

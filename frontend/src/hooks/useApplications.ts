@@ -7,6 +7,7 @@ import type { Order, SortBy } from "../types/api.types";
 export const useApplications = () => {
   const [applications, setApplications] = useState<JobApplication[]>([]);
   const [total, setTotal] = useState<number>(0);
+  const [limit, setLimit] = useState<number>(10);
   const [search, setSearch] = useState<string>("");
   const [status, setStatus] = useState<string>("");
   const [page, setPage] = useState<number>(1);
@@ -26,14 +27,12 @@ export const useApplications = () => {
           search: debouncedSearch,
           status,
           page,
-          limit: 10,
+          limit,
           sortBy,
           order,
         });
         setApplications(rows);
         setTotal(total);
-        setSortBy(sortBy);
-        setOrder(order);
       } catch (e) {
         if (e instanceof Error) {
           setError(e.message);
@@ -45,7 +44,7 @@ export const useApplications = () => {
       }
     };
     fetchApplicationsData();
-  }, [debouncedSearch, status, page, sortBy, order]);
+  }, [debouncedSearch, status, page, sortBy, order, limit]);
 
   const addApplication = async (data: JobApplication) => {
     setError(null);
@@ -124,6 +123,21 @@ export const useApplications = () => {
     getStats();
   }, [applications]);
 
+  const handleSetSearch = (value: string) => {
+    setPage(1);
+    setSearch(value);
+  };
+
+  const handleSetStatus = (value: string) => {
+    setPage(1);
+    setStatus(value);
+  };
+
+  const handleSetSortBy = (value: SortBy) => {
+    setPage(1);
+    setSortBy(value);
+  };
+
   const value = {
     applications,
     isLoading,
@@ -135,10 +149,12 @@ export const useApplications = () => {
     stats,
     sortBy,
     order,
+    limit,
+    setLimit,
     setOrder,
-    setSortBy,
-    setSearch,
-    setStatus,
+    handleSetSortBy,
+    handleSetSearch,
+    handleSetStatus,
     setPage,
     addApplication,
     removeApplication,

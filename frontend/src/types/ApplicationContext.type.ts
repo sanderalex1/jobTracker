@@ -14,6 +14,7 @@ export type AppContextType = {
     stats: Stats | undefined;
     sortBy: SortBy;
     order: Order;
+    limit: number;
   };
   action: {
     addApplication: (data: JobApplication) => void;
@@ -24,10 +25,11 @@ export type AppContextType = {
     setSelectedApplication: React.Dispatch<
       React.SetStateAction<JobApplication | null>
     >;
-    setSearch: React.Dispatch<React.SetStateAction<string>>;
-    setStatus: React.Dispatch<React.SetStateAction<string>>;
+    handleSetSearch: (value: string) => void;
+    handleSetStatus: (value: string) => void;
     setPage: React.Dispatch<React.SetStateAction<number>>;
-    setSortBy: React.Dispatch<React.SetStateAction<SortBy>>;
+    handleSetSortBy: (value: SortBy) => void;
     setOrder: React.Dispatch<React.SetStateAction<Order>>;
+    setLimit: React.Dispatch<React.SetStateAction<number>>;
   };
 };

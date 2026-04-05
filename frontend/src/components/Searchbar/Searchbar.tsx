@@ -4,7 +4,7 @@ import { useAppContext } from "../../context/ApplicationContext";
 
 const Searchbar = () => {
   const {
-    action: { setSearch },
+    action: { handleSetSearch },
     static: { search },
   } = useAppContext();
 
@@ -33,7 +33,7 @@ const Searchbar = () => {
           },
         }}
         value={search}
-        onChange={(e) => setSearch(e.target.value)}
+        onChange={(e) => handleSetSearch(e.target.value)}
       />
     </Box>
   );

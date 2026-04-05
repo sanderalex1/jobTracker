@@ -28,14 +28,16 @@ export const ApplicationProvider = ({ children }: ApplicationProviderProps) => {
     stats,
     sortBy,
     order,
+    limit,
+    setLimit,
     addApplication,
     removeApplication,
     editApplication,
-    setSearch,
-    setStatus,
+    handleSetSearch,
+    handleSetStatus,
     setPage,
     setOrder,
-    setSortBy,
+    handleSetSortBy,
   } = useApplications();
 
   const [selectedApplication, setSelectedApplication] =
@@ -65,6 +67,7 @@ export const ApplicationProvider = ({ children }: ApplicationProviderProps) => {
       stats,
       sortBy,
       order,
+      limit,
     },
     action: {
       addApplication,
@@ -73,11 +76,12 @@ export const ApplicationProvider = ({ children }: ApplicationProviderProps) => {
       handleOpen,
       handleClose,
       setSelectedApplication,
-      setSearch,
-      setStatus,
+      handleSetSearch,
+      handleSetStatus,
       setPage,
       setOrder,
-      setSortBy,
+      handleSetSortBy,
+      setLimit,
     },
   };
 

@@ -11,16 +11,16 @@ const StatisticCards = () => {
   const [activeStatus, setActiveStatus] = useState<ApplicationStatus | "">("");
   const {
     static: { stats },
-    action: { setStatus },
+    action: { handleSetStatus },
   } = useAppContext();
 
   const handleStatusClick = (clickedStatus: ApplicationStatus) => {
     if (clickedStatus === activeStatus) {
       setActiveStatus("");
-      setStatus("");
+      handleSetStatus("");
     } else {
       setActiveStatus(clickedStatus);
-      setStatus(clickedStatus);
+      handleSetStatus(clickedStatus);
     }
   };
 

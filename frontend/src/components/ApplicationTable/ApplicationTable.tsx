@@ -5,6 +5,7 @@ import {
   TableBody,
   TableContainer,
   TableHead,
+  TablePagination,
   TableRow,
   useTheme,
 } from "@mui/material";
@@ -13,8 +14,6 @@ import CreateIcon from "@mui/icons-material/Create";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ApplicationEmptyCard from "./ApplicationEmptyCard";
 import { StyledTableCell } from "../muiComponents";
-import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropUp";
 
 const ApplicationTable = () => {
   const theme = useTheme();
@@ -30,15 +29,24 @@ const ApplicationTable = () => {
   ];
 
   const {
-    static: { applications, sortBy, order },
+    static: { applications, sortBy, order, page, total, limit },
     action: {
       removeApplication,
       setSelectedApplication,
       handleOpen,
       setOrder,
-      setSortBy,
+      handleSetSortBy,
+      setPage,
+      setLimit,
     },
   } = useAppContext();
+
+  const handleChangeRowsPerPage = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    setLimit(parseInt(event.target.value, 10));
+    setPage(1);
+  };
 
   if (applications.length === 0) {
     return <ApplicationEmptyCard />;
@@ -62,8 +70,14 @@ const ApplicationTable = () => {
                         const key = header.sortKey as
                           | "company"
                           | "applied_date";
-                        setSortBy(key);
-                        setOrder((prev) => (prev === "asc" ? "desc" : "asc"));
+                        if (key === sortBy) {
+                          // same column — toggle direction
+                          setOrder((prev) => (prev === "asc" ? "desc" : "asc"));
+                        } else {
+                          // different column — reset to asc
+                          handleSetSortBy(key);
+                          setOrder("asc");
+                        }
                       }}
                       style={{ cursor: "pointer" }}
                     >
@@ -132,6 +146,14 @@ const ApplicationTable = () => {
             ))}
           </TableBody>
         </Table>
+        <TablePagination
+          component="div"
+          count={total}
+          page={page - 1}
+          onPageChange={(_, newPage) => setPage(newPage + 1)}
+          rowsPerPage={limit}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
       </TableContainer>
     );
   }

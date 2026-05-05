@@ -1,6 +1,7 @@
 import {
   Chip,
   IconButton,
+  Link,
   Table,
   TableBody,
   TableContainer,
@@ -13,6 +14,7 @@ import { useAppContext } from "../../context/ApplicationContext";
 import CreateIcon from "@mui/icons-material/Create";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ApplicationEmptyCard from "./ApplicationEmptyCard";
+import LinkIcon from "@mui/icons-material/Link";
 import { StyledTableCell } from "../muiComponents";
 
 const ApplicationTable = () => {
@@ -106,7 +108,16 @@ const ApplicationTable = () => {
                 }}
                 key={row.id}
               >
-                <StyledTableCell>{row.company}</StyledTableCell>
+                <StyledTableCell>
+                  {row.company}
+                  {row.link ? (
+                    <Link target="_blank" href={row.link} rel="noopener">
+                      <IconButton>
+                        <LinkIcon sx={{ color: "background.button" }} />
+                      </IconButton>
+                    </Link>
+                  ) : null}
+                </StyledTableCell>
                 <StyledTableCell>{row.role}</StyledTableCell>
                 <StyledTableCell>{row.location}</StyledTableCell>
                 <StyledTableCell>

@@ -21,6 +21,10 @@ declare module "@mui/material/styles" {
     headDashboard?: string;
   }
 
+  interface TypeText {
+    link?: string;
+  }
+
   interface PaletteOptions {
     background?: Partial<TypeBackground>;
   }

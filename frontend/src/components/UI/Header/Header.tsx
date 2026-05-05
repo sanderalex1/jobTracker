@@ -1,4 +1,12 @@
-import { Box, Button, IconButton, Typography, useTheme } from "@mui/material";
+import {
+  Box,
+  Button,
+  IconButton,
+  Link,
+  Typography,
+  useTheme,
+} from "@mui/material";
+import { NavLink } from "react-router-dom";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import AddIcon from "@mui/icons-material/Add";
 import LightModeIcon from "@mui/icons-material/LightMode";
@@ -12,6 +20,12 @@ const Header = () => {
   const {
     action: { handleOpen },
   } = useAppContext();
+
+  const pages = [
+    { page: "Tracker", href: "/" },
+    { page: "Job Board", href: "/jobs" },
+  ];
+
   return (
     <Box
       sx={{
@@ -33,6 +47,31 @@ const Header = () => {
       >
         <WorkOutlineIcon fontSize="large" />
         <Typography variant="h2">JobTrack</Typography>
+        <Box>
+          {pages.map((p) => (
+            <Button
+              key={p.href}
+              sx={{
+                overflow: "visible",
+                paddingBottom: "8px",
+                "& .MuiTouchRipple-root": { color: "rgb(79, 70, 229)" },
+              }}
+            >
+              <NavLink
+                to={p.href}
+                style={({ isActive }) => ({
+                  color: isActive ? "rgb(79, 70, 229)" : "rgb(37, 37, 37)",
+                  textDecoration: "none",
+                  borderBottom: isActive ? "2px solid currentColor" : "none",
+                  textTransform: "capitalize",
+                  padding: "0.5rem",
+                })}
+              >
+                {p.page}
+              </NavLink>
+            </Button>
+          ))}
+        </Box>
       </Box>
       <Box
         sx={{

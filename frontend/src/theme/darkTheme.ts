@@ -19,6 +19,7 @@ const darkTheme = createTheme({
       primary: "rgb(251, 251, 251)",
       secondary: "rgba(255, 255, 255, 0.65)",
       disabled: "rgba(255, 255, 255, 0.38)",
+      link: "rgb(79, 70, 229)",
     },
   },
   statusColors,

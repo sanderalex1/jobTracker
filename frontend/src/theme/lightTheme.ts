@@ -19,6 +19,7 @@ const lightTheme = createTheme({
       primary: "rgb(37, 37, 37)",
       secondary: "rgba(0, 0, 0, 0.6);",
       disabled: "#0000008f",
+      link: "rgb(79, 70, 229)",
     },
   },
   statusColors,

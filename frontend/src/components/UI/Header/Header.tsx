@@ -1,11 +1,4 @@
-import {
-  Box,
-  Button,
-  IconButton,
-  Link,
-  Typography,
-  useTheme,
-} from "@mui/material";
+import { Box, Button, IconButton, Typography, useTheme } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import AddIcon from "@mui/icons-material/Add";
@@ -60,7 +53,9 @@ const Header = () => {
               <NavLink
                 to={p.href}
                 style={({ isActive }) => ({
-                  color: isActive ? "rgb(79, 70, 229)" : "rgb(37, 37, 37)",
+                  color: isActive
+                    ? theme.palette.background.button
+                    : theme.palette.text.primary,
                   textDecoration: "none",
                   borderBottom: isActive ? "2px solid currentColor" : "none",
                   textTransform: "capitalize",

@@ -2,6 +2,9 @@ import "dotenv/config";
 import { chromium } from "playwright";
 import pool from "../db/pool.js";
 
+const userAgent =
+  "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36";
+
 const scrapeJobDetails = async (page, link) => {
   try {
     await page.goto(link);
@@ -98,7 +101,8 @@ const saveJob = async (job) => {
 // main function — reads keywords from DB and scrapes each one
 export const scrapeJobs = async () => {
   const browser = await chromium.launch();
-  const page = await browser.newPage();
+  const context = await browser.newContext({ userAgent });
+  const page = await context.newPage();
 
   try {
     // read keywords from DB
@@ -120,3 +124,5 @@ export const scrapeJobs = async () => {
     await browser.close();
   }
 };
+
+scrapeJobs();

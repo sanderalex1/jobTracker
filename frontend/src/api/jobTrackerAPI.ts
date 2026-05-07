@@ -1,4 +1,4 @@
-import type { Params } from "../types/api.types";
+import type { AppParams, ScrapedJobsParams } from "../types/api.types";
 import type { JobApplication } from "../types/types";
 
 const BASE_URL = "http://localhost:3000/api/v1";
@@ -16,7 +16,7 @@ export const getApplications = ({
   limit,
   sortBy,
   order,
-}: Params) => {
+}: AppParams) => {
   const params = new URLSearchParams();
   if (status) params.append("status", status);
   if (search) params.append("search", search);
@@ -26,6 +26,15 @@ export const getApplications = ({
   params.append("order", order);
 
   return request(`/applications?${params.toString()}`);
+};
+
+export const getScrapedJobs = ({ limit, page }: ScrapedJobsParams) => {
+  const params = new URLSearchParams();
+
+  params.append("page", String(page));
+  params.append("limit", String(limit));
+
+  return request(`/scraped-jobs?${params.toString()}`);
 };
 
 export const getApplicationById = (id: string) =>

@@ -20,3 +20,13 @@ export interface JobApplication {
 }
 
 export type Stats = Record<ApplicationStatus, number>;
+
+export interface ScrapedJob {
+  id: `${string}-${string}-${string}-${string}-${string}`;
+  company: string;
+  title: string;
+  location: string;
+  salary: string | null;
+  description: string | null;
+  link: string;
+}

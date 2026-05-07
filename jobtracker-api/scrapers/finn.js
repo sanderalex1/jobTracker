@@ -67,7 +67,8 @@ const scrapeKeyword = async (page, keyword) => {
     if (existing.rows.length > 0) continue;
 
     const description = await scrapeJobDetails(page, job.link);
-    await page.waitForTimeout(2000);
+    const delay = Math.floor(Math.random() * 2000) + 1000;
+    await page.waitForTimeout(delay);
 
     jobs.push({ ...job, description });
   }

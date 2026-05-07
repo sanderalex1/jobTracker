@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, type ReactNode } from "react";
-import type { JobApplication } from "../types/types";
+import type { JobApplication, ScrapedJob } from "../types/types";
 import type { AppContextType } from "../types/ApplicationContext.type";
 import { useApplications } from "../hooks/useApplications";
 
@@ -45,6 +45,9 @@ export const ApplicationProvider = ({ children }: ApplicationProviderProps) => {
 
   const [open, setOpen] = useState(false);
 
+  const [selectedScrapedJob, setSelectedScrapedJob] =
+    useState<ScrapedJob | null>(null);
+
   const handleOpen = () => {
     setOpen(true);
   };
@@ -52,6 +55,7 @@ export const ApplicationProvider = ({ children }: ApplicationProviderProps) => {
   const handleClose = () => {
     setOpen(false);
     setSelectedApplication(null);
+    setSelectedScrapedJob(null);
   };
 
   const value: AppContextType = {
@@ -68,6 +72,7 @@ export const ApplicationProvider = ({ children }: ApplicationProviderProps) => {
       sortBy,
       order,
       limit,
+      selectedScrapedJob,
     },
     action: {
       addApplication,
@@ -82,6 +87,7 @@ export const ApplicationProvider = ({ children }: ApplicationProviderProps) => {
       setOrder,
       handleSetSortBy,
       setLimit,
+      setSelectedScrapedJob,
     },
   };
 

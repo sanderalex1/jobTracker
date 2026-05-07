@@ -1,5 +1,10 @@
 import { styled } from "@mui/material/styles";
-import { TableCell, tableCellClasses, TextField } from "@mui/material";
+import {
+  TableCell,
+  tableCellClasses,
+  TextField,
+  Typography,
+} from "@mui/material";
 import type { Theme } from "@mui/material/styles";
 
 export const StyledTextField = styled(TextField)(() => ({
@@ -31,3 +36,10 @@ export const StyledTableCell = styled(TableCell)(
     },
   }),
 );
+
+export const JobCardTypography = styled(Typography)({
+  display: "flex",
+  alignItems: "center",
+  gap: 0.5,
+  fontSize: "12px",
+});

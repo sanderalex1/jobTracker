@@ -15,7 +15,7 @@ import { StyledTextField } from "../muiComponents";
 
 const ApplicationEditor = () => {
   const {
-    static: { selectedApplication },
+    static: { selectedApplication, selectedScrapedJob },
     action: { handleClose, addApplication, editApplication },
   } = useAppContext();
   const theme = useTheme();
@@ -54,7 +54,9 @@ const ApplicationEditor = () => {
 
   return (
     <Box sx={{ p: 5 }}>
-      <DialogTitle>Add New Application</DialogTitle>
+      <DialogTitle>
+        {selectedApplication ? "Edit Application" : "Add New Application"}
+      </DialogTitle>
       <DialogContent>
         <form onSubmit={handleSumbit} id="edit-form">
           <Box
@@ -68,7 +70,11 @@ const ApplicationEditor = () => {
               required
               margin="dense"
               name="company"
-              defaultValue={selectedApplication?.company}
+              defaultValue={
+                selectedScrapedJob
+                  ? selectedScrapedJob.company
+                  : selectedApplication?.company
+              }
               label="Company Name"
               type="text"
               fullWidth
@@ -78,7 +84,11 @@ const ApplicationEditor = () => {
               required
               margin="dense"
               name="role"
-              defaultValue={selectedApplication?.role}
+              defaultValue={
+                selectedScrapedJob
+                  ? selectedScrapedJob.title
+                  : selectedApplication?.role
+              }
               label="Role"
               type="text"
               fullWidth
@@ -88,7 +98,11 @@ const ApplicationEditor = () => {
               required
               margin="dense"
               name="location"
-              defaultValue={selectedApplication?.location}
+              defaultValue={
+                selectedScrapedJob
+                  ? selectedScrapedJob.location
+                  : selectedApplication?.location
+              }
               label="Location"
               type="text"
               fullWidth
@@ -153,7 +167,11 @@ const ApplicationEditor = () => {
             <StyledTextField
               margin="normal"
               name="notes"
-              defaultValue={selectedApplication?.notes}
+              defaultValue={
+                selectedScrapedJob
+                  ? (selectedScrapedJob.description ?? "")
+                  : selectedApplication?.notes
+              }
               label="Notes"
               fullWidth
               variant="outlined"
@@ -163,7 +181,11 @@ const ApplicationEditor = () => {
             <StyledTextField
               margin="normal"
               name="link"
-              defaultValue={selectedApplication?.link}
+              defaultValue={
+                selectedScrapedJob
+                  ? selectedScrapedJob.link
+                  : selectedApplication?.link
+              }
               label="Link"
               fullWidth
               variant="outlined"

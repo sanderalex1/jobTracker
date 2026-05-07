@@ -1,5 +1,5 @@
 import type { Order, SortBy } from "./api.types";
-import type { JobApplication, Stats } from "./types";
+import type { JobApplication, ScrapedJob, Stats } from "./types";
 
 export type AppContextType = {
   static: {
@@ -15,6 +15,7 @@ export type AppContextType = {
     sortBy: SortBy;
     order: Order;
     limit: number;
+    selectedScrapedJob: ScrapedJob | null;
   };
   action: {
     addApplication: (data: JobApplication) => void;
@@ -31,5 +32,6 @@ export type AppContextType = {
     handleSetSortBy: (value: SortBy) => void;
     setOrder: React.Dispatch<React.SetStateAction<Order>>;
     setLimit: React.Dispatch<React.SetStateAction<number>>;
+    setSelectedScrapedJob: React.Dispatch<ScrapedJob | null>;
   };
 };

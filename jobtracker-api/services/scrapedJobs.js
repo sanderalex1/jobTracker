@@ -5,7 +5,7 @@ export const fetchJobs = async ({ page = 1, limit = 10 }) => {
   const limitNum = parseInt(limit);
   let offset = (pageNum - 1) * limitNum;
 
-  const query = `SELECT id, title, company, location, salary, description, link, posted_date 
+  const query = `SELECT id, title, company, location, salary, description, link, posted_date AS "postedDate"
                  FROM scraped_jobs 
                  WHERE is_applied = false
                  LIMIT $1 OFFSET $2`;

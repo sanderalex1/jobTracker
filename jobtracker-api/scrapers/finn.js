@@ -124,5 +124,3 @@ export const scrapeJobs = async () => {
     await browser.close();
   }
 };
-
-scrapeJobs();

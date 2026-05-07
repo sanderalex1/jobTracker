@@ -1,12 +1,12 @@
 import * as applicationService from "../services/applications.js";
-import { schema } from "../schemas/application.js";
+import { applicationSchema } from "../schemas/application.js";
 
 export const getApplications = async (req, res) => {
   return res.json(await applicationService.fetchApplications(req.query));
 };
 
 export const createApplication = async (req, res) => {
-  const result = schema.safeParse(req.body);
+  const result = applicationSchema.safeParse(req.body);
   if (!result.success) {
     return res.status(400).json({ errors: result.error.errors });
   }
@@ -17,7 +17,7 @@ export const createApplication = async (req, res) => {
 
 export const updateApplication = async (req, res) => {
   const { id } = req.params;
-  const result = schema.safeParse(req.body);
+  const result = applicationSchema.safeParse(req.body);
   if (!result.success) {
     return res.status(400).json({ errors: result.error.errors });
   }

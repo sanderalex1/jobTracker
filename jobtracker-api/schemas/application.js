@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const schema = z.object({
+export const applicationSchema = z.object({
   company: z.string(),
   notes: z.string().optional(),
   status: z.enum(["Applied", "Interview", "Offer", "Rejected"]),

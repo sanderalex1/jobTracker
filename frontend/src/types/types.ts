@@ -29,4 +29,5 @@ export interface ScrapedJob {
   salary: string | null;
   description: string | null;
   link: string;
+  postedDate: Date;
 }

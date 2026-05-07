@@ -54,6 +54,11 @@ export const updateApplication = (id: string, data: JobApplication) =>
     body: JSON.stringify(data),
   });
 
+export const markAsApplied = (id: string) =>
+  request(`/scraped-jobs/${id}`, {
+    method: "PATCH",
+  });
+
 export const deleteApplication = (id: string) =>
   request(`/applications/${id}`, { method: "DELETE" });
 

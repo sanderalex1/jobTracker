@@ -31,6 +31,23 @@ export const useScrapedJobs = () => {
     fetchScrapedJobsData();
   }, [page, limit]);
 
+  const markAsApplied = async (id: string) => {
+    setError(null);
+    setIsLoading(true);
+    try {
+      await api.markAsApplied(id);
+      setScrapedJobs((prev) => prev.filter((job) => job.id !== id));
+    } catch (e) {
+      if (e instanceof Error) {
+        setError(e.message);
+      } else {
+        setError("An unknown error occurred");
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const value = {
     scrapedJobs,
     total,
@@ -40,6 +57,7 @@ export const useScrapedJobs = () => {
     isLoading,
     setPage,
     setLimit,
+    markAsApplied,
   };
 
   return value;

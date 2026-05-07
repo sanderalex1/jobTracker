@@ -51,8 +51,18 @@ export const useApplications = () => {
     setIsLoading(true);
     if (!data) return "Please provide application data";
     try {
-      const created = await api.createApplication(data);
-      setApplications((prev) => [...prev, created]);
+      await api.createApplication(data);
+      // refetch instead of appending
+      const { rows, total } = await api.getApplications({
+        search: debouncedSearch,
+        status,
+        page,
+        limit,
+        sortBy,
+        order,
+      });
+      setApplications(rows);
+      setTotal(total);
     } catch (e) {
       if (e instanceof Error) {
         setError(e.message);

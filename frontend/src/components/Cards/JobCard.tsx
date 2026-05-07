@@ -18,7 +18,13 @@ import type { ScrapedJob } from "../../types/types";
 import { JobCardTypography } from "../muiComponents";
 import { useState } from "react";
 
-const JobCard = ({ job, isOpen }: { job: ScrapedJob; isOpen: () => void }) => {
+const JobCard = ({
+  job,
+  addApplication,
+}: {
+  job: ScrapedJob;
+  addApplication: () => void;
+}) => {
   const [expanded, setExpanded] = useState(false);
 
   return (
@@ -86,7 +92,7 @@ const JobCard = ({ job, isOpen }: { job: ScrapedJob; isOpen: () => void }) => {
             <LaunchIcon sx={{ display: "flex", alignSelf: "center" }} />
           </Link>
           <Button
-            onClick={isOpen}
+            onClick={addApplication}
             sx={{
               backgroundColor: "background.button",
               borderRadius: "1rem",
@@ -99,7 +105,6 @@ const JobCard = ({ job, isOpen }: { job: ScrapedJob; isOpen: () => void }) => {
             <Typography
               variant="button"
               sx={{ textTransform: "capitalize", fontSize: "12px" }}
-              onClick={isOpen}
             >
               Add to Tracker
             </Typography>

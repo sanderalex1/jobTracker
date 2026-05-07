@@ -5,7 +5,7 @@ import JobCard from "../components/Cards/JobCard";
 
 const JobBoard = () => {
   const {
-    action: { handleOpen, setSelectedScrapedJob },
+    action: { addApplication },
   } = useAppContext();
 
   const { scrapedJobs, markAsApplied } = useScrapedJobs();
@@ -25,10 +25,18 @@ const JobBoard = () => {
         {scrapedJobs.map((j) => (
           <JobCard
             key={j.id}
-            isOpen={() => {
-              setSelectedScrapedJob(j);
-              handleOpen();
+            addApplication={() => {
               markAsApplied(j.id);
+              addApplication({
+                id: crypto.randomUUID(),
+                company: j.company,
+                role: j.title,
+                location: j.location,
+                link: j.link,
+                notes: j.description ?? undefined,
+                status: "Applied",
+                appliedDate: new Date(),
+              });
             }}
             job={j}
           />

@@ -1,4 +1,10 @@
-import { Box, Container, Divider, Typography } from "@mui/material";
+import {
+  Box,
+  Container,
+  Divider,
+  TablePagination,
+  Typography,
+} from "@mui/material";
 import { useAppContext } from "../context/ApplicationContext";
 import { useScrapedJobs } from "../hooks/useScrapedJobs";
 import JobCard from "../components/Cards/JobCard";
@@ -8,7 +14,15 @@ const JobBoard = () => {
     action: { addApplication },
   } = useAppContext();
 
-  const { scrapedJobs, markAsApplied } = useScrapedJobs();
+  const { scrapedJobs, markAsApplied, setLimit, setPage, limit, total, page } =
+    useScrapedJobs();
+
+  const handleChangeRowsPerPage = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    setLimit(parseInt(event.target.value, 10));
+    setPage(1);
+  };
 
   return (
     <Container maxWidth="xl">
@@ -22,6 +36,14 @@ const JobBoard = () => {
       <Box
         sx={{ pt: 2, pb: 4, display: "flex", flexDirection: "column", gap: 2 }}
       >
+        <TablePagination
+          component="div"
+          count={total}
+          page={page - 1}
+          onPageChange={(_, newPage) => setPage(newPage + 1)}
+          rowsPerPage={limit}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
         {scrapedJobs.map((j) => (
           <JobCard
             key={j.id}
